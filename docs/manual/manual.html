@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>STOS Studio - User Manual</title>
+<style>
+  @page { size: A4; margin: 18mm 18mm 20mm 18mm; }
+  :root { --ink: #1b2340; --accent: #e8483b; --muted: #5a6075; --rule: #d9dce6; --code-bg: #1e1e1e; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif; color: #222; font-size: 10.5pt; line-height: 1.5; margin: 0; }
+  h1, h2, h3 { color: var(--ink); line-height: 1.25; }
+  h2 { font-size: 17pt; margin: 0 0 8pt; padding-bottom: 4pt; border-bottom: 2px solid var(--accent); break-after: avoid; }
+  h3 { font-size: 12pt; margin: 14pt 0 4pt; break-after: avoid; }
+  p { margin: 0 0 7pt; }
+  ul, ol { margin: 0 0 8pt; padding-left: 18pt; }
+  li { margin-bottom: 3pt; }
+  code { font-family: Menlo, Monaco, monospace; font-size: 9pt; background: #f0f1f5; padding: 0.5pt 3pt; border-radius: 3px; }
+  kbd { font-family: -apple-system, sans-serif; font-size: 8.5pt; border: 1px solid #b8bccb; border-bottom-width: 2px; border-radius: 3px; padding: 0 4pt; background: #fafbfc; }
+  pre { font-family: Menlo, Monaco, monospace; font-size: 8.8pt; line-height: 1.45; background: var(--code-bg); color: #d4d4d4; padding: 8pt 10pt; border-radius: 6px; margin: 4pt 0 10pt; white-space: pre-wrap; break-inside: avoid; }
+  pre.plain { background: #f4f5f8; color: #222; }
+  pre.long { break-inside: auto; font-size: 8pt; line-height: 1.35; }   /* a long listing may continue on the next page */
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 10pt; font-size: 9.5pt; break-inside: auto; }
+  th, td { text-align: left; vertical-align: top; padding: 4pt 6pt; border-bottom: 1px solid var(--rule); }
+  th { background: #eef0f6; color: var(--ink); }
+  tr { break-inside: avoid; }
+  .note { border-left: 4px solid #f5a623; background: #fff8ea; padding: 6pt 10pt; margin: 6pt 0 10pt; border-radius: 0 4px 4px 0; break-inside: avoid; }
+  .tip { border-left: 4px solid #3b8de8; background: #eef5fd; padding: 6pt 10pt; margin: 6pt 0 10pt; border-radius: 0 4px 4px 0; break-inside: avoid; }
+  section { break-before: page; }
+  section.first { break-before: auto; }
+  /* a code line with a red wavy underline, like VS Code's error squiggle */
+  .squiggle { text-decoration: underline wavy #f14c4c; text-underline-offset: 3px; }
+  .cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .cover img { width: 46mm; height: 46mm; image-rendering: pixelated; margin-bottom: 14mm; }
+  .cover h1 { font-size: 34pt; margin: 0 0 4mm; }
+  .cover .sub { font-size: 14pt; color: var(--muted); margin-bottom: 18mm; }
+  .cover .small { font-size: 9.5pt; color: var(--muted); max-width: 130mm; }
+  .toc ol { list-style: none; padding: 0; font-size: 11pt; }
+  .toc li { display: flex; border-bottom: 1px dotted #c5c9d6; padding: 3pt 0; }
+  .toc li span:first-child { flex: 1; }
+  /* syntax colours (dark theme, like VS Code's default) */
+  .k-control { color: #c586c0; } .k-other { color: #569cd6; } .fn { color: #dcdcaa; } .var { color: #9cdcfe; }
+  .const { color: #4fc1ff; } .op { color: #d4d4d4; } .opw { color: #569cd6; } .cmt { color: #6a9955; }
+  .str { color: #ce9178; } .num { color: #b5cea8; } .label { color: #4ec9b0; } .labeldef { color: #dcdcaa; font-weight: bold; }
+  .dir { color: #c586c0; } .lineno { color: #858585; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <img src="icon.png" alt="">
+  <h1>STOS Studio</h1>
+  <div class="sub">User manual</div>
+  <div class="small">A Visual Studio Code extension for writing STOS BASIC programs for the Atari ST, building them
+  and running them in the Hatari emulator.<br><br>Version 0.1.1 &middot; November 2026</div>
+</div>
+
+<section class="first toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span>1. What STOS Studio does</span></li>
+    <li><span>2. What you need</span></li>
+    <li><span>3. Installing</span></li>
+    <li><span>4. First-time setup</span></li>
+    <li><span>5. Your first project</span></li>
+    <li><span>6. Writing .stos files</span></li>
+    <li><span>7. Help while you write</span></li>
+    <li><span>8. Building, and red squiggles</span></li>
+    <li><span>9. Running in Hatari</span></li>
+    <li><span>10. Settings</span></li>
+    <li><span>11. Commands</span></li>
+    <li><span>12. Error messages and what to do</span></li>
+    <li><span>13. A program to check everything: the spaceship</span></li>
+    <li><span>14. Credits and licence</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>1. What STOS Studio does</h2>
+  <p>STOS BASIC (STOS: The Game Creator, Mandarin/Jawx 1988) only understands numbered program lines, typed into
+  its own editor on the Atari ST. STOS Studio lets you write those programs in Visual Studio Code instead, in a
+  friendlier form, and run them in the Hatari emulator with one click:</p>
+  <ul>
+    <li><b>No line numbers.</b> Jump to <code>@labels</code> instead, split big programs over several files with
+      <code>#include</code>, indent your code, and keep notes that STOS never sees.</li>
+    <li><b>Help on every STOS command</b> (about 360): suggestions while you type, and help when you rest the mouse on
+      a command, with its syntax, an explanation, an example and the page of the STOS manual.</li>
+    <li><b>Colours</b> for commands, functions, strings, numbers, comments and labels, plus a few ready-made
+      pieces of code (snippets).</li>
+    <li><b>Build</b> turns your <code>.stos</code> file into the numbered <code>.asc</code> file that STOS loads.
+      Any mistakes (unknown labels, missing files, characters the Atari does not have) are all listed at once.</li>
+    <li><b>Red squiggles</b> underline those mistakes right in the editor, and list them in VS Code's Problems
+      panel, as soon as you save.</li>
+    <li><b>Run</b> builds, gets an emulated hard disk ready with your STOS and your program on it, and starts
+      Hatari.</li>
+  </ul>
+  <p>STOS Studio was written from scratch, inspired by Neil Halliday's STOS: The Game Creator extension
+  (stoscoders.com/visual-studio-code). It contains no code or text from it. See chapter 14 for the credits.</p>
+</section>
+
+<section>
+  <h2>2. What you need</h2>
+  <table>
+    <tr><th>What</th><th>Why</th><th>Notes</th></tr>
+    <tr><td>Visual Studio Code 1.74 or newer</td><td>the editor</td><td>macOS, Windows or Linux</td></tr>
+    <tr><td>Hatari</td><td>emulates the Atari ST</td><td>on macOS: <code>Hatari.app</code>, anywhere on your disk</td></tr>
+    <tr><td>A TOS ROM image</td><td>the Atari's operating system, for Hatari</td><td>a file such as <code>tos162uk.img</code>; see the table below</td></tr>
+    <tr><td>Your copy of STOS</td><td>the BASIC itself</td><td>the folder that contains <code>BASIC208.TOS</code> (or <code>BASIC206.TOS</code>)</td></tr>
+  </table>
+  <div class="note">None of these come with STOS Studio. You point the extension at your own copies once, and it
+  remembers them for all projects.</div>
+  <h3>Which TOS image?</h3>
+  <p>By default Hatari emulates an Atari STE. Pick a TOS that fits the machine you choose (setting
+  <code>stosStudio.machine</code>, chapter 10):</p>
+  <table>
+    <tr><th>Machine</th><th>TOS images that fit</th></tr>
+    <tr><td>STE, Mega STE (default: STE)</td><td>TOS 1.62, TOS 2.06</td></tr>
+    <tr><td>ST, Mega ST</td><td>TOS 1.02, TOS 1.04</td></tr>
+  </table>
+  <p>TOS 3.06 (TT) and 4.04 (Falcon) are for machines STOS does not run on.</p>
+</section>
+
+<section>
+  <h2>3. Installing</h2>
+  <p>STOS Studio comes as one file, <code>stos-studio-0.1.1.vsix</code>.</p>
+  <ol>
+    <li><b>Remove any other STOS extension first.</b> Two extensions that both handle <code>.stos</code> files get
+      in each other's way. In VS Code open the Extensions view (<kbd>Shift</kbd><kbd>Cmd</kbd><kbd>X</kbd>), find
+      the other STOS extension and choose <i>Uninstall</i>.</li>
+    <li>In the Extensions view, click the <b>&middot;&middot;&middot;</b> menu at the top and choose
+      <i>Install from VSIX...</i>, then pick <code>stos-studio-0.1.1.vsix</code>.<br>
+      Or, in a terminal: <code>code --install-extension stos-studio-0.1.1.vsix --force</code></li>
+    <li>Reload any VS Code windows that were open: Command Palette (<kbd>Shift</kbd><kbd>Cmd</kbd><kbd>P</kbd>),
+      <i>Developer: Reload Window</i>.</li>
+  </ol>
+  <p>To update later, install the new <code>.vsix</code> the same way; your settings stay.</p>
+  <div class="tip">On Windows and Linux use <kbd>Ctrl</kbd> where this manual says <kbd>Cmd</kbd>.</div>
+</section>
+
+<section>
+  <h2>4. First-time setup</h2>
+  <p>Tell STOS Studio where your Hatari, TOS image and STOS are. Open the Command Palette
+  (<kbd>Shift</kbd><kbd>Cmd</kbd><kbd>P</kbd>), type <i>STOS Studio</i>, and run these three commands:</p>
+  <table>
+    <tr><th>Command</th><th>What to pick</th></tr>
+    <tr><td><b>STOS Studio: Select Hatari...</b></td><td>On macOS pick <code>Hatari.app</code> itself; STOS Studio
+      finds the program inside it. On Windows pick <code>hatari.exe</code>.</td></tr>
+    <tr><td><b>STOS Studio: Select TOS image...</b></td><td>Your TOS ROM image file (<code>.img</code>,
+      <code>.rom</code> or <code>.tos</code>).</td></tr>
+    <tr><td><b>STOS Studio: Select STOS folder...</b></td><td>The folder that contains <code>BASIC208.TOS</code>.
+      Picking the folder around it also works: STOS Studio looks for a <code>STOS</code> folder inside.</td></tr>
+  </table>
+  <p>Each choice is saved in your user settings, so you do this only once for all projects. A message confirms
+  what was saved. You can check or change the values any time in Settings (<kbd>Cmd</kbd><kbd>,</kbd>), section
+  <i>STOS Studio</i>.</p>
+  <div class="note">If a project has its own <code>.vscode/settings.json</code> with a different value, that
+  value wins for that project. STOS Studio warns you when this happens.</div>
+</section>
+
+<section>
+  <h2>5. Your first project</h2>
+  <ol>
+    <li>Command Palette, <b>STOS Studio: New STOS project...</b></li>
+    <li>Choose the folder to create the project in (for example a folder <code>STOSProjects</code> in your home
+      folder).</li>
+    <li>Type a name, for example <code>MyFirstGame</code>. Names cannot contain <code>\ / : * ? " &lt; &gt; |</code>
+      and cannot start with a dot.</li>
+  </ol>
+  <p>The project opens (in a new window if one was already open). It contains:</p>
+  <table>
+    <tr><th>File</th><th>What it is</th></tr>
+    <tr><td><code>main.stos</code></td><td>your program: a small "Hello" to start from</td></tr>
+    <tr><td><code>.vscode/settings.json</code></td><td>the project's settings (main file, output file, emulated drive)</td></tr>
+    <tr><td><code>.gitignore</code></td><td>tells git to skip the built files and the emulated drive</td></tr>
+  </table>
+  <p>After the first Build and Run two more folders appear: <code>stos/</code> with the built
+  <code>main.asc</code>, and <code>hatari/hd/</code>, the emulated hard disk (drive C: for the Atari).</p>
+  <p>The new <code>main.stos</code> looks like this:</p>
+<pre class="stos">' main.stos - a new STOS Studio project
+' Lines starting with ' are notes for you: STOS never sees them.
+' Build: Shift+Cmd+B (Ctrl+Shift+B).  Run in Hatari: the play button at the top right.
+
+mode 0 : cls : curs off : hide on
+colour 0,$000 : colour 1,$777 : pen 1 : paper 0
+gosub @title
+wait key
+default
+end
+
+' prints the title in the middle of the screen
+@title
+locate 0,10 : centre "Hello from STOS Studio!"
+locate 0,12 : centre "Press a key"
+return</pre>
+  <p>Press the <b>play button</b> at the top right of the editor to build it and run it in Hatari (chapter 9).</p>
+</section>
+
+<section>
+  <h2>6. Writing .stos files</h2>
+  <p>A <code>.stos</code> file is ordinary STOS BASIC without line numbers. Build adds the numbers. Here is the
+  idea in one example:</p>
+<pre class="stos">' a note for you: lines starting with ' or // never reach STOS
+#include "sprites.stos"
+mode 0 : cls
+@loop
+   print "Hello"
+   if inkey$="" then goto @loop</pre>
+  <p>Build turns it into (assuming <code>sprites.stos</code> holds one line):</p>
+<pre class="plain">10 sprite 1,10,10,1
+20 mode 0 : cls
+30 print "Hello"
+40 if inkey$="" then goto 30</pre>
+
+  <h3>Line numbers</h3>
+  <ul>
+    <li>Lines are numbered 10, 20, 30, ... in the order they appear.</li>
+    <li><code>#lineinc 5</code> on a line of its own changes the step for the lines after it (1 to 1000).</li>
+    <li>The highest line number is 65535.</li>
+    <li>Do not type line numbers yourself: a line that starts with a digit is reported as an error.</li>
+  </ul>
+
+  <h3>Labels</h3>
+  <ul>
+    <li>A label is <code>@</code> followed by letters, digits and <code>_</code>: <code>@main_loop</code>,
+      <code>@level2</code>. Upper and lower case do not matter: <code>@Loop</code> is <code>@loop</code>.</li>
+    <li><b>At the start of a line</b>, a label marks that line. Anything after it stays as the line's code:
+      <code>@loop print X</code> becomes <code>120 print X</code>.</li>
+    <li>A label <b>alone on a line</b> marks the next line that has code. Several labels may mark the same line.</li>
+    <li><b>Everywhere else</b>, <code>@name</code> is replaced by the number of its line, wherever STOS expects a
+      line number: <code>goto @loop</code>, <code>gosub @title</code>, <code>if X then @hit else @miss</code>,
+      <code>on N goto @a,@b,@c</code>, <code>restore @levels</code>, <code>on error goto @oops</code>, ...</li>
+    <li>Labels are whole names: <code>@a</code> never changes part of <code>@ab</code>.</li>
+    <li>Not replaced: inside <code>"strings"</code>, after <code>rem</code>, and when <code>@</code> comes straight
+      after a letter or digit.</li>
+  </ul>
+
+  <h3>Several files</h3>
+  <ul>
+    <li><code>#include "file.stos"</code> on a line of its own inserts another file at that point. The path is
+      relative to the file that contains the <code>#include</code>. Included files may include others.</li>
+    <li>Labels work across files: define <code>@beep</code> in one file, <code>gosub @beep</code> in another.</li>
+  </ul>
+
+  <h3>Comments, blank lines and indentation</h3>
+  <ul>
+    <li>Lines starting with <code>'</code> or <code>//</code> are notes for you. Build drops them, so they use no
+      line numbers and no memory on the Atari. <kbd>Cmd</kbd><kbd>/</kbd> turns lines into such notes and back.</li>
+    <li><code>rem</code> lines are STOS comments: they are kept, and STOS lists them.</li>
+    <li>Blank lines and indentation are only for you; Build removes them.</li>
+  </ul>
+
+  <h3>Letters with accents</h3>
+  <p>The Atari has its own character set. Build writes your text in it, so <code>print "café"</code> works.
+  Characters the Atari does not have, such as <code>€</code> or emoji, are reported with their position.</p>
+</section>
+
+<section>
+  <h2>7. Help while you write</h2>
+  <h3>Suggestions</h3>
+  <p>While you type, VS Code suggests STOS commands. The icon shows what each one is: an instruction
+  (<code>sprite</code>), a function (<code>x mouse</code>), or a reserved variable (<code>timer</code>). Press
+  <kbd>Ctrl</kbd><kbd>Space</kbd> to see suggestions at any time.</p>
+  <h3>Help on a command</h3>
+  <p>Rest the mouse on a command to see:</p>
+  <ul>
+    <li>its <b>syntax</b> (all forms, as on the STOS reference card; <code>[ ]</code> means optional),</li>
+    <li>what it does, with a <b>small example</b>,</li>
+    <li>the <b>page</b> of the STOS User Guide (the page number of the PDF scan) where it is described.</li>
+  </ul>
+  <p>Two-word commands work too (<code>move x</code>, <code>reserve as screen</code>), and the longest one wins:
+  over <code>default physic</code> you get help for that, not for <code>default</code>. Nothing pops up inside
+  strings or labels.</p>
+  <h3>Colours</h3>
+  <p>Commands, functions, control words (<code>if</code>, <code>goto</code>, <code>for</code>...), strings,
+  numbers (<code>$7F0</code>, <code>%1010</code>, <code>3.5</code>), comments, <code>@labels</code> and
+  <code>#include</code> each get their own colour. The colours come from your VS Code colour theme.</p>
+  <h3>Snippets</h3>
+  <p>Type the word on the left and pick it from the suggestions to insert a ready-made piece of code;
+  <kbd>Tab</kbd> jumps between the parts to fill in.</p>
+  <table>
+    <tr><th>Type</th><th>Inserts</th></tr>
+    <tr><td><code>for</code></td><td>a <code>for ... next</code> loop</td></tr>
+    <tr><td><code>ifelse</code></td><td>a one-line <code>if ... then ... else</code></td></tr>
+    <tr><td><code>while</code></td><td>a <code>while ... wend</code> loop</td></tr>
+    <tr><td><code>repeat</code></td><td>a <code>repeat ... until</code> loop</td></tr>
+    <tr><td><code>sub</code></td><td>a labelled subroutine ending in <code>return</code></td></tr>
+    <tr><td><code>gameloop</code></td><td>screen set-up and a main loop that runs until <kbd>Esc</kbd></td></tr>
+    <tr><td><code>windopen</code></td><td>a text window with a border and a title</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>8. Building, and red squiggles</h2>
+  <h3>Red squiggles</h3>
+  <p>You do not have to build to find out about mistakes. STOS Studio checks your whole project (the main file
+  and everything it includes) and shows each mistake as a <b>red wavy underline</b> in the editor, exactly where
+  it is. Rest the mouse on it to read the message.</p>
+<pre class="stos">@loop print "Hi"
+   goto ⟦@lopp⟧ : rem unknown label: the label is @loop</pre>
+  <ul>
+    <li>The same messages are listed in VS Code's <b>Problems</b> panel (<i>View, Problems</i>, or
+      <kbd>Shift</kbd><kbd>Cmd</kbd><kbd>M</kbd>) with the file and line. Click one to jump to it.</li>
+    <li>Where STOS Studio knows the exact characters, only those are underlined: the <code>@lopp</code> above,
+      a <code>€</code> in a string, the digits of a line number you typed by hand. Other mistakes underline the
+      whole line.</li>
+    <li>A mistake inside an included file is shown in that file, not in the main file.</li>
+    <li>The check runs when you open a project, <b>each time you save</b> a <code>.stos</code> file or change a
+      STOS Studio setting, and when Build or Run starts. Fix the mistake and save, and the squiggle disappears.</li>
+    <li>The check reads the files as saved on disk, so a mistake you have just typed shows up only after you
+      save.</li>
+  </ul>
+
+  <h3>Building</h3>
+  <p>Build turns the project's main file (<code>main.stos</code>) into <code>stos/main.asc</code>.</p>
+  <ul>
+    <li>Click the <b>tools button</b> at the top right of a <code>.stos</code> file, or</li>
+    <li>press <kbd>Shift</kbd><kbd>Cmd</kbd><kbd>B</kbd> and choose <i>Build STOS program</i>, or</li>
+    <li>run <b>STOS Studio: Build</b> from the Command Palette.</li>
+  </ul>
+  <p>A terminal panel shows what happens:</p>
+<pre class="plain">Reading main.stos
+Including sprites.stos
+51 lines, 9 labels
+Writing /Users/you/STOSProjects/MyFirstGame/stos/main.asc
+Done.</pre>
+  <p>If something is wrong, nothing is written and every problem is listed (up to 20) with file, line and
+  column, so you can fix them all in one go. They also appear as red squiggles, as described above:</p>
+<pre class="plain">main.stos:12:7: unknown label @boss
+levels.stos:3: label @start is already defined in main.stos:5
+main.stos:20:11: character "€" (U+20AC) does not exist in the Atari ST character set</pre>
+  <div class="tip">When STOS reports an error in a line number (for example "Syntax error in line 230"), open
+  <code>stos/main.asc</code> to see which line that is, then find it in your <code>.stos</code> file.</div>
+</section>
+
+<section>
+  <h2>9. Running in Hatari</h2>
+  <p>Click the <b>play button</b> at the top right of a <code>.stos</code> file (or run <b>STOS Studio: Build and
+  run in Hatari</b>). STOS Studio then:</p>
+  <ol>
+    <li><b>builds</b> the program first, so you never run an old version;</li>
+    <li>the <b>first time only</b>, copies your STOS folder onto the project's emulated hard disk
+      (<code>hatari/hd/STOS</code>, about 5 MB). A drive that already has STOS is left alone, so older projects
+      keep working;</li>
+    <li>copies your program to the root of that disk as <code>MAIN.ASC</code>;</li>
+    <li>starts <b>Hatari</b> with your TOS image and the disk as drive C:, and starts STOS from it.</li>
+  </ol>
+  <p>STOS opens in its editor. Load your program and run it by typing:</p>
+<pre class="plain">load "C:\MAIN.ASC"
+run</pre>
+  <p>Hatari's messages appear in the terminal panel in VS Code. Close Hatari when you are done; the next Run
+  starts it again with the newest version of your program.</p>
+  <h3>Your own files: the assets folder</h3>
+  <p>Put sprite banks, pictures and other files your program loads into a folder called <code>assets</code> in
+  the project (sub-folders are fine). On every Run they are copied onto the emulated disk, next to
+  <code>MAIN.ASC</code>, so the program can load them by name:</p>
+<pre class="stos">load "sprites.mbk"</pre>
+  <ul>
+    <li>Files you edit arrive again on the next Run. Names starting with a dot are skipped.</li>
+    <li>The Atari has short file names (8 letters, a dot, 3 letters). Longer names are copied but Run warns you.</li>
+    <li>Use another folder with <code>stosStudio.assetsFolder</code>; an empty setting copies nothing.</li>
+  </ul>
+  <h3>Optional: the sprite editor from STOS-Toolkit</h3>
+  <p>STOS-Toolkit is a separate project with graphic tools written in Python. If you have it, run
+  <b>STOS Studio: Select Toolkit folder...</b> once and pick its folder (the one with <code>pyproject.toml</code>
+  and <code>.venv</code>). Two things then appear:</p>
+  <ul>
+    <li><b>Right-click a <code>.mbk</code> or <code>.spr</code> file</b> in the Explorer, then
+      <i>Open sprite editor (STOS-Toolkit)</i>.</li>
+    <li>The same command in the Command Palette: it opens the sprite bank that is open in VS Code, or a new bank.</li>
+  </ul>
+  <p>The editor opens in its own window. Save the bank into your <code>assets</code> folder and the next Run
+  copies it onto the emulated disk. Without a Toolkit folder these commands stay hidden and everything else works
+  as before.</p>
+  <div class="note">The emulated machine is set by three settings: <code>stosStudio.machine</code> (default STE),
+  <code>stosStudio.memory</code> (default 1 MB) and <code>stosStudio.resolution</code> (default low resolution,
+  320 &times; 200 in 16 colours). See chapter 10.</div>
+</section>
+
+<section>
+  <h2>10. Settings</h2>
+  <p>Open Settings with <kbd>Cmd</kbd><kbd>,</kbd> and search for <i>STOS Studio</i>. Paths may start with
+  <code>~</code> for your home folder. Project paths are relative to the project folder.</p>
+  <div class="note"><b>Safety:</b> the settings that name programs and folders on your computer
+  (<code>hatariPath</code>, <code>tosImage</code>, <code>stosFolder</code>, <code>toolkitFolder</code>) can only be
+  set in your own user settings, never by a project you download. <code>outputFile</code> and
+  <code>hardDrive</code> must stay inside the project folder. Run and the sprite editor start external programs,
+  so they are disabled until you trust the workspace (VS Code asks when you open a new folder).</div>
+  <table>
+    <tr><th>Setting</th><th>Default</th><th>Meaning</th></tr>
+    <tr><td><code>stosStudio.hatariPath</code></td><td>empty</td><td>The Hatari program. Empty means the usual place
+      (macOS: <code>/Applications/Hatari.app</code>). Set with <i>Select Hatari...</i></td></tr>
+    <tr><td><code>stosStudio.tosImage</code></td><td>empty</td><td>The TOS ROM image. Needed to run. Set with
+      <i>Select TOS image...</i></td></tr>
+    <tr><td><code>stosStudio.assetsFolder</code></td><td><code>assets</code></td><td>Project folder whose files are
+      copied onto the emulated drive on every Run (chapter 9). Empty means copy nothing.</td></tr>
+    <tr><td><code>stosStudio.toolkitFolder</code></td><td>empty</td><td>Optional: your STOS-Toolkit folder. Set with
+      <i>Select Toolkit folder...</i></td></tr>
+    <tr><td><code>stosStudio.stosFolder</code></td><td>empty</td><td>Your STOS folder (with <code>BASIC208.TOS</code>),
+      copied onto a project's drive the first time you run it. Set with <i>Select STOS folder...</i></td></tr>
+    <tr><td><code>stosStudio.machine</code></td><td><code>ste</code></td><td>The Atari Hatari emulates:
+      <code>st</code>, <code>megast</code>, <code>ste</code> or <code>megaste</code>. Pick a TOS that fits (chapter 2).</td></tr>
+    <tr><td><code>stosStudio.memory</code></td><td><code>1024</code></td><td>Memory of the emulated Atari in KB:
+      512, 1024, 2048 or 4096.</td></tr>
+    <tr><td><code>stosStudio.resolution</code></td><td><code>low</code></td><td><code>low</code>: 320 &times; 200, 16
+      colours. <code>medium</code>: 640 &times; 200, 4 colours. <code>high</code>: 640 &times; 400, black and white
+      (monochrome monitor). Most STOS games use low.</td></tr>
+    <tr><td><code>stosStudio.sourceFile</code></td><td><code>main.stos</code></td><td>The project's main file.</td></tr>
+    <tr><td><code>stosStudio.outputFile</code></td><td><code>stos/main.asc</code></td><td>Where Build writes the
+      numbered program.</td></tr>
+    <tr><td><code>stosStudio.hardDrive</code></td><td><code>hatari/hd</code></td><td>The folder Hatari uses as
+      drive C:.</td></tr>
+    <tr><td><code>stosStudio.autoRun</code></td><td><code>C:\STOS\BASIC208.TOS</code></td><td>The program Hatari
+      starts, as the Atari sees it. Change it if your STOS is <code>BASIC206.TOS</code>.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>11. Commands</h2>
+  <p>All commands are in the Command Palette (<kbd>Shift</kbd><kbd>Cmd</kbd><kbd>P</kbd>) under
+  <i>STOS Studio</i>.</p>
+  <table>
+    <tr><th>Command</th><th>What it does</th></tr>
+    <tr><td><b>Build</b></td><td>Turns <code>main.stos</code> into <code>stos/main.asc</code>. Also the tools
+      button, and <kbd>Shift</kbd><kbd>Cmd</kbd><kbd>B</kbd>.</td></tr>
+    <tr><td><b>Build and run in Hatari</b></td><td>Builds, gets the emulated disk ready, starts Hatari with STOS.
+      Also the play button.</td></tr>
+    <tr><td><b>New STOS project...</b></td><td>Creates a project folder with a first program and opens it.</td></tr>
+    <tr><td><b>Select Hatari...</b></td><td>Chooses the Hatari program.</td></tr>
+    <tr><td><b>Select TOS image...</b></td><td>Chooses the TOS ROM image.</td></tr>
+    <tr><td><b>Select STOS folder...</b></td><td>Chooses your STOS folder.</td></tr>
+    <tr><td><b>Select Toolkit folder...</b></td><td>Chooses the optional STOS-Toolkit folder.</td></tr>
+    <tr><td><b>Open sprite editor (STOS-Toolkit)</b></td><td>Starts the Toolkit's sprite editor. Only shown when a
+      Toolkit folder is set. Also in the Explorer's right-click menu for <code>.mbk</code> and <code>.spr</code>.</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>12. Error messages and what to do</h2>
+  <p>The messages in the first table appear as red squiggles (hover to read them), in the Problems panel and in
+  the Build terminal. The second table shows messages from Run.</p>
+  <h3>Mistakes in your source</h3>
+  <table>
+    <tr><th>Message</th><th>What to do</th></tr>
+    <tr><td>main.stos not found (set "stosStudio.sourceFile")</td><td>Open the project folder itself in VS Code, or
+      set <code>stosStudio.sourceFile</code> to your main file.</td></tr>
+    <tr><td>line numbers are added by the converter; use @labels instead</td><td>Remove the number at the start of
+      the line; put a <code>@label</code> there if you jump to it.</td></tr>
+    <tr><td>unknown label @name</td><td>The label is used but never defined. Check the spelling, or add
+      <code>@name</code> at the start of the line it should jump to.</td></tr>
+    <tr><td>label @name is already defined in file:line</td><td>Two lines have the same label. Rename one.</td></tr>
+    <tr><td>label @name has no line of code after it</td><td>A label at the very end of the program marks nothing.
+      Put a line after it (for example <code>end</code>) or remove it.</td></tr>
+    <tr><td>#include: file not found</td><td>Check the file name; the path is relative to the file with the
+      <code>#include</code>.</td></tr>
+    <tr><td>#include loop: a.stos -&gt; b.stos -&gt; a.stos</td><td>Files include each other in a circle. Remove one
+      of the <code>#include</code> lines.</td></tr>
+    <tr><td>#include needs a file name in quotes</td><td>Write <code>#include "file.stos"</code>.</td></tr>
+    <tr><td>#lineinc needs a step from 1 to 1000</td><td>Write for example <code>#lineinc 10</code>.</td></tr>
+    <tr><td>unknown directive #word</td><td>Only <code>#include</code> and <code>#lineinc</code> exist.</td></tr>
+    <tr><td>line number ... is higher than 65535</td><td>The program is too long for the step. Use a smaller
+      <code>#lineinc</code>.</td></tr>
+    <tr><td>character "x" does not exist in the Atari ST character set</td><td>Replace the character; the Atari
+      has most accented letters but not, for example, <code>€</code>.</td></tr>
+  </table>
+  <h3>When running</h3>
+  <table>
+    <tr><th>Message</th><th>What to do</th></tr>
+    <tr><td>No TOS image chosen yet / TOS image not found</td><td>Click <i>Select TOS image...</i> in the message, or
+      run that command.</td></tr>
+    <tr><td>STOS is not on the emulated drive yet: choose your STOS folder</td><td>Click <i>Select STOS
+      folder...</i> and pick the folder with <code>BASIC208.TOS</code>.</td></tr>
+    <tr><td>No STOS found in ...</td><td>The folder you picked has no <code>BASIC2xx.TOS</code>. Pick the right one.</td></tr>
+    <tr><td>C:\STOS\BASIC208.TOS is not on the emulated drive</td><td>Your STOS has a different interpreter (for
+      example <code>BASIC206.TOS</code>). Set <code>stosStudio.autoRun</code> to
+      <code>C:\STOS\BASIC206.TOS</code>.</td></tr>
+    <tr><td>Cannot start Hatari</td><td>Click <i>Select Hatari...</i> and pick Hatari (on macOS:
+      <code>Hatari.app</code>).</td></tr>
+    <tr><td>Warning: the Atari only has short names</td><td>A file in the assets folder has a name longer than
+      8 letters + 3. Rename it, or STOS may not find it under that name.</td></tr>
+    <tr><td>The assets folder ... contains the emulated drive</td><td>Choose another <code>stosStudio.assetsFolder</code>
+      (it must not be a parent of <code>hatari/hd</code>).</td></tr>
+    <tr><td>Toolkit folder not found / does not look like STOS-Toolkit / No Python found</td><td>Click
+      <i>Select Toolkit folder...</i> and pick the STOS-Toolkit folder; it needs its <code>.venv</code> (see the
+      Toolkit's own notes).</td></tr>
+    <tr><td>This workspace is not trusted</td><td>Run and the sprite editor are disabled in untrusted workspaces.
+      Trust the folder (Command Palette, <i>Workspaces: Manage Workspace Trust</i>).</td></tr>
+    <tr><td>"stosStudio.outputFile" (or hardDrive) must be inside the project folder</td><td>Use a path inside the
+      project, for example <code>stos/main.asc</code> and <code>hatari/hd</code>.</td></tr>
+    <tr><td>"stosStudio.machine" (or memory, resolution) is "..."</td><td>The setting was typed by hand with a value
+      that does not exist. Choose one from the list in Settings.</td></tr>
+  </table>
+  <div class="tip">If Hatari starts but STOS does not, check that the TOS image fits the machine (chapter 2).</div>
+</section>
+
+<section>
+  <h2>13. A program to check everything: the spaceship</h2>
+  <p>This program flies a small spaceship around the screen with the cursor keys. It uses labels with
+  <code>goto</code>, <code>gosub</code> and <code>on ... gosub</code>, reads the cursor keys, and draws without
+  flicker on a hidden screen. To try it, make a new project and replace <code>main.stos</code> with it.</p>
+  <p><b>Keys:</b> cursor keys set the direction (the ship keeps going), <kbd>Space</kbd> stops,
+  <kbd>Esc</kbd> quits.</p>
+<pre class="stos long">@@SPACESHIP@@</pre>
+</section>
+
+<section>
+  <h2>14. Credits and licence</h2>
+  <ul>
+    <li><b>Neil Halliday</b> wrote the STOS: The Game Creator extension for VS Code
+      (stoscoders.com/visual-studio-code). It showed that STOS BASIC can be written in a modern editor and
+      inspired this project, including the idea of writing source without line numbers and using
+      <code>@labels</code>, <code>#include</code> and <code>#lineinc</code>. STOS Studio is an independent
+      implementation written from scratch: it contains no code, text or other files from his extension. It is
+      not affiliated with or endorsed by him.</li>
+    <li><b>STOS BASIC</b> and <b>STOS: The Game Creator</b> were created by Fran&ccedil;ois Lionet and Constantin
+      Sotiropoulos (Mandarin Software / Jawx, 1988). The help texts in STOS Studio are written from the STOS User
+      Guide and reference card in the author's own words.</li>
+    <li><b>Hatari</b> is the open-source Atari ST emulator that runs the programs.</li>
+  </ul>
+  <p>STOS, Atari and TOS belong to their respective owners. STOS Studio includes none of them: you provide your
+  own copy of STOS, a TOS ROM image and Hatari.</p>
+  <p><b>Licence:</b> STOS Studio is released under the MIT licence. Copyright &copy; 2026 Dimitris Filios.</p>
+</section>
+
+</body>
+</html>

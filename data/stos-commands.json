@@ -1,0 +1,6207 @@
+{
+	"$comment": "STOS command database, written from the STOS User Guide (Mandarin/Jawx 1988) and the reference card in own words. Format: docs/commands.md.",
+	"commands": [
+		{
+			"name": "auto",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"AUTO [start][,inc]"
+			],
+			"doc": [
+				"Direct command: the editor types the next line number for you each time you press Return. Without values it starts at 10 and counts in steps of 10.",
+				"",
+				"```stos",
+				"auto 100,5",
+				"```"
+			],
+			"manual": 31
+		},
+		{
+			"name": "change",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"CHANGE a$ TO b$ [start-end]"
+			],
+			"doc": [
+				"Replaces every a$ in the program by b$. Give a line range to limit where it changes.",
+				"",
+				"```stos",
+				"change \"SCORE\" to \"POINTS\"",
+				"```"
+			],
+			"manual": 34
+		},
+		{
+			"name": "clear",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"CLEAR"
+			],
+			"doc": [
+				"Wipes all variables and the banks made by the program, and sets the READ pointer back to the first DATA line.",
+				"",
+				"```stos",
+				"clear",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "cont",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"CONT"
+			],
+			"doc": [
+				"Carries on with a program that was stopped by STOP or Control+C, at the next instruction. Only works if the program was not edited in between.",
+				"",
+				"```stos",
+				"cont",
+				"```"
+			],
+			"manual": 31
+		},
+		{
+			"name": "default",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"DEFAULT"
+			],
+			"doc": [
+				"Puts the editor back to its start-up state and redraws its windows. Unlike RESET it can also be used inside a program.",
+				"",
+				"Not the same as DEFAULT PHYSIC / LOGIC / BACK (screen addresses).",
+				"",
+				"```stos",
+				"default",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "delete",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"DELETE first-last"
+			],
+			"doc": [
+				"Removes program lines. Forms like `DELETE 100`, `DELETE 100-200`, `DELETE -200` and `DELETE 100-` work as for LIST.",
+				"",
+				"```stos",
+				"delete 100-200",
+				"```"
+			],
+			"manual": 35
+		},
+		{
+			"name": "english",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"ENGLISH"
+			],
+			"doc": [
+				"Switches the editor messages and command names to English (the default). See FRANCAIS.",
+				"",
+				"```stos",
+				"english",
+				"```"
+			],
+			"manual": 40
+		},
+		{
+			"name": "francais",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FRANCAIS"
+			],
+			"doc": [
+				"Switches the editor to French. ENGLISH switches back.",
+				"",
+				"```stos",
+				"francais",
+				"```"
+			],
+			"manual": 40
+		},
+		{
+			"name": "language",
+			"kind": "function",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"=LANGUAGE"
+			],
+			"doc": [
+				"Tells which language (English or French) the editor is set to.",
+				"",
+				"```stos",
+				"print language",
+				"```"
+			],
+			"manual": 40,
+			"unclear": "Only on the reference card; no entry found in the manual OCR. Page 40 is the ENGLISH/FRANCAIS entry. Check the return values."
+		},
+		{
+			"name": "fload",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FLOAD path$"
+			],
+			"doc": [
+				"Opens the file selector and loads the program you pick. path$ is the search pattern shown in the selector.",
+				"",
+				"```stos",
+				"fload \"*.BAS\"",
+				"```"
+			],
+			"manual": 28
+		},
+		{
+			"name": "follow",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FOLLOW",
+				"FOLLOW OFF",
+				"FOLLOW first-last",
+				"FOLLOW variable list",
+				"FOLLOW variable list,first-last"
+			],
+			"doc": [
+				"Tracing for debugging: shows each line as it runs, optionally only between two lines, and can print chosen variables as they change. FOLLOW OFF stops it.",
+				"",
+				"```stos",
+				"follow A,B$,100-200",
+				"```"
+			],
+			"manual": 35
+		},
+		{
+			"name": "free",
+			"kind": "function",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"=FREE"
+			],
+			"doc": [
+				"Gives the number of bytes still free for your program. It also tidies the string memory, which can take a moment.",
+				"",
+				"```stos",
+				"print free",
+				"```"
+			],
+			"manual": 40
+		},
+		{
+			"name": "frequency",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FREQUENCY"
+			],
+			"doc": [
+				"Toggles the screen refresh between 50 and 60 Hz, for monitors that can show 60 Hz.",
+				"",
+				"```stos",
+				"frequency",
+				"```"
+			],
+			"manual": 40
+		},
+		{
+			"name": "fsave",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FSAVE path$"
+			],
+			"doc": [
+				"Saves the current program under a name chosen in the file selector.",
+				"",
+				"```stos",
+				"fsave \"*.BAS\"",
+				"```"
+			],
+			"manual": 29
+		},
+		{
+			"name": "full",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"FULL"
+			],
+			"doc": [
+				"Makes the current editor window fill the whole screen; other programs are not affected.",
+				"",
+				"```stos",
+				"full",
+				"```"
+			],
+			"manual": 38
+		},
+		{
+			"name": "grab",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"GRAB n [first-last]"
+			],
+			"doc": [
+				"Copies program number n (or only lines first to last of it) into the current program, so separately tested parts can be joined.",
+				"",
+				"```stos",
+				"grab 2,100-500",
+				"```"
+			],
+			"manual": 38
+		},
+		{
+			"name": "keylist",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"KEYLIST"
+			],
+			"doc": [
+				"Lists what text is assigned to each function key. Shifted keys appear as 11 to 20.",
+				"",
+				"```stos",
+				"keylist",
+				"```"
+			],
+			"manual": 24
+		},
+		{
+			"name": "list",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"LIST",
+				"LIST -last",
+				"LIST first-",
+				"LIST first-last"
+			],
+			"doc": [
+				"Shows the program, or a range of it, on screen.",
+				"",
+				"```stos",
+				"list 100-200",
+				"```"
+			],
+			"manual": 33
+		},
+		{
+			"name": "lower",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"LOWER"
+			],
+			"doc": [
+				"Back to the normal listing style: commands in lower case, variables in upper case. See UPPER.",
+				"",
+				"```stos",
+				"lower",
+				"```"
+			],
+			"manual": 41
+		},
+		{
+			"name": "merge",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"MERGE file$"
+			],
+			"doc": [
+				"Adds a program from disc to the one in memory. Lines with the same number are replaced by the loaded ones.",
+				"",
+				"```stos",
+				"merge \"ROUTINES.BAS\"",
+				"```"
+			],
+			"manual": 35
+		},
+		{
+			"name": "multi",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"MULTI n"
+			],
+			"doc": [
+				"Splits the editor into n windows, one per program segment, so several programs can be seen at once.",
+				"",
+				"```stos",
+				"multi 2",
+				"```"
+			],
+			"manual": 37
+		},
+		{
+			"name": "new",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"NEW"
+			],
+			"doc": [
+				"Erases the current program from memory. Other program segments stay. UNNEW may bring it back.",
+				"",
+				"```stos",
+				"new",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "renum",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"RENUM [number][,inc]",
+				"RENUM number,inc,start-end"
+			],
+			"doc": [
+				"Renumbers the program (or lines start to end) beginning at number, in steps of inc (both 10 when left out). GOTO and GOSUB targets are updated.",
+				"",
+				"```stos",
+				"renum 1000,10",
+				"```"
+			],
+			"manual": 32
+		},
+		{
+			"name": "reset",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"RESET"
+			],
+			"doc": [
+				"Restarts the editor and redraws the screen.",
+				"",
+				"```stos",
+				"reset",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "run",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"RUN",
+				"RUN file$",
+				"RUN line"
+			],
+			"doc": [
+				"Starts the current program from its first line, from a given line, or loads a program from disc and runs it.",
+				"",
+				"```stos",
+				"run 100",
+				"```"
+			],
+			"manual": 30
+		},
+		{
+			"name": "search",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"SEARCH s$",
+				"SEARCH s$,start-end",
+				"SEARCH"
+			],
+			"doc": [
+				"Finds the text s$ in the program and shows the line. SEARCH alone goes to the next match.",
+				"",
+				"```stos",
+				"search \"gosub\"",
+				"```"
+			],
+			"manual": 33
+		},
+		{
+			"name": "system",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"SYSTEM"
+			],
+			"doc": [
+				"Leaves STOS and goes back to the GEM desktop. Anything not saved is lost.",
+				"",
+				"```stos",
+				"system",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "unnew",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"UNNEW"
+			],
+			"doc": [
+				"Tries to restore a program erased by NEW. Only works if nothing new was typed in between.",
+				"",
+				"```stos",
+				"unnew",
+				"```"
+			],
+			"manual": 39
+		},
+		{
+			"name": "upper",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"UPPER"
+			],
+			"doc": [
+				"Listing style with commands in upper case and variables in lower case. LOWER switches back.",
+				"",
+				"```stos",
+				"upper",
+				"```"
+			],
+			"manual": 40
+		},
+		{
+			"name": "hexa",
+			"kind": "keyword",
+			"category": "Editor",
+			"source": "STOS",
+			"syntax": [
+				"HEXA ON/OFF"
+			],
+			"doc": [
+				"Chooses whether LISTBANK shows its numbers in hexadecimal (ON) or decimal (OFF).",
+				"",
+				"```stos",
+				"hexa off : listbank",
+				"```"
+			],
+			"manual": 51
+		},
+		{
+			"name": "dim",
+			"kind": "keyword",
+			"category": "Arrays",
+			"source": "STOS",
+			"syntax": [
+				"DIM var(size),..."
+			],
+			"doc": [
+				"Creates an array. Several arrays and several dimensions are allowed; each dimension can hold up to 65535 elements and starts at element 0.",
+				"",
+				"```stos",
+				"dim A(10),N$(20),M#(5,5)",
+				"```"
+			],
+			"manual": 42
+		},
+		{
+			"name": "inc",
+			"kind": "keyword",
+			"category": "Variables",
+			"source": "STOS",
+			"syntax": [
+				"INC var"
+			],
+			"doc": [
+				"Adds 1 to an integer variable. Same result as var=var+1, but faster.",
+				"",
+				"```stos",
+				"inc SCORE",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "dec",
+			"kind": "keyword",
+			"category": "Variables",
+			"source": "STOS",
+			"syntax": [
+				"DEC var"
+			],
+			"doc": [
+				"Takes 1 from an integer variable. Same result as var=var-1, but faster.",
+				"",
+				"```stos",
+				"dec LIVES",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": "let",
+			"kind": "keyword",
+			"category": "Variables",
+			"source": "STOS",
+			"syntax": [
+				"LET x=y"
+			],
+			"doc": [
+				"Assigns a value to a variable. The word LET is optional.",
+				"",
+				"```stos",
+				"let A=10 : B$=\"STOS\"",
+				"```"
+			],
+			"manual": 221
+		},
+		{
+			"name": "left$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=LEFT$(str1$,n)",
+				"LEFT$(v$,n)=a$"
+			],
+			"doc": [
+				"As a function: the first n characters of a string. On the left of `=` it replaces the first characters of v$ instead.",
+				"",
+				"```stos",
+				"print left$(\"ATARI ST\",5)",
+				"```"
+			],
+			"manual": 46
+		},
+		{
+			"name": "right$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=RIGHT$(str1$,n)",
+				"RIGHT$(v$,n)=a$"
+			],
+			"doc": [
+				"As a function: the last n characters of a string. On the left of `=` it replaces the last characters of v$.",
+				"",
+				"```stos",
+				"print right$(\"ATARI ST\",2)",
+				"```"
+			],
+			"manual": 46
+		},
+		{
+			"name": "mid$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=MID$(v$,s,n)",
+				"MID$(v$,s,n)=a$"
+			],
+			"doc": [
+				"As a function: n characters of v$ starting at character s (the first character is 1). On the left of `=` it overwrites that part of v$.",
+				"",
+				"```stos",
+				"print mid$(\"GAME OVER\",6,4)",
+				"```"
+			],
+			"manual": 47
+		},
+		{
+			"name": "instr",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=INSTR(str1$,str2$[,p])"
+			],
+			"doc": [
+				"Looks for str2$ inside str1$, from character p if given. Returns the position where it was found, or 0.",
+				"",
+				"```stos",
+				"print instr(\"HELLO WORLD\",\"WORLD\")",
+				"```"
+			],
+			"manual": 48
+		},
+		{
+			"name": "sort",
+			"kind": "keyword",
+			"category": "Arrays",
+			"source": "STOS",
+			"syntax": [
+				"SORT A$(0)"
+			],
+			"doc": [
+				"Sorts a whole array (strings, integers or reals) into ascending order. Always give element 0.",
+				"",
+				"```stos",
+				"sort N$(0)",
+				"```"
+			],
+			"manual": 49
+		},
+		{
+			"name": "match",
+			"kind": "function",
+			"category": "Arrays",
+			"source": "STOS",
+			"syntax": [
+				"=MATCH(var(0),value)"
+			],
+			"doc": [
+				"Searches a sorted array for value and returns its element number. When it is missing, a negative number points to the closest entry.",
+				"",
+				"```stos",
+				"sort A(0) : print match(A(0),42)",
+				"```"
+			],
+			"manual": 49,
+			"unclear": "The OCR of the not-found result is unclear; check page 49."
+		},
+		{
+			"name": "upper$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=UPPER$(n$)"
+			],
+			"doc": [
+				"Returns the string in capitals.",
+				"",
+				"```stos",
+				"print upper$(\"stos\")",
+				"```"
+			],
+			"manual": 222
+		},
+		{
+			"name": "lower$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=LOWER$(n$)"
+			],
+			"doc": [
+				"Returns the string in small letters.",
+				"",
+				"```stos",
+				"print lower$(\"STOS\")",
+				"```"
+			],
+			"manual": 222
+		},
+		{
+			"name": "flip$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=FLIP$(n$)"
+			],
+			"doc": [
+				"Returns the string backwards.",
+				"",
+				"```stos",
+				"print flip$(\"STOS\")",
+				"```"
+			],
+			"manual": 222
+		},
+		{
+			"name": "space$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=SPACE$(n)"
+			],
+			"doc": [
+				"A string made of n spaces.",
+				"",
+				"```stos",
+				"print \"A\";space$(10);\"B\"",
+				"```"
+			],
+			"manual": 222
+		},
+		{
+			"name": "string$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=STRING$(a$,n)"
+			],
+			"doc": [
+				"A string of n copies of the first character of a$.",
+				"",
+				"```stos",
+				"print string$(\"*\",20)",
+				"```"
+			],
+			"manual": 222
+		},
+		{
+			"name": "chr$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=CHR$(n)"
+			],
+			"doc": [
+				"The character with Ascii code n.",
+				"",
+				"```stos",
+				"print chr$(65)",
+				"```"
+			],
+			"manual": 223
+		},
+		{
+			"name": "asc",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=ASC(a$)"
+			],
+			"doc": [
+				"The Ascii code of the first character of a$.",
+				"",
+				"```stos",
+				"print asc(\"A\")",
+				"```"
+			],
+			"manual": 223
+		},
+		{
+			"name": "len",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=LEN(a$)"
+			],
+			"doc": [
+				"The number of characters in a$, invisible ones included.",
+				"",
+				"```stos",
+				"print len(\"STOS BASIC\")",
+				"```"
+			],
+			"manual": 223
+		},
+		{
+			"name": "val",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=VAL(x$)"
+			],
+			"doc": [
+				"Turns the number written in a string into a value; 0 if there is no number.",
+				"",
+				"```stos",
+				"A=val(\"123\")+1",
+				"```"
+			],
+			"manual": 223
+		},
+		{
+			"name": "str$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=STR$(n)"
+			],
+			"doc": [
+				"Turns a number into a string.",
+				"",
+				"```stos",
+				"A$=\"SCORE:\"+str$(100)",
+				"```"
+			],
+			"manual": 223
+		},
+		{
+			"name": "hex$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=HEX$(x)",
+				"=HEX$(x,n)"
+			],
+			"doc": [
+				"The number as a hexadecimal string starting with $, optionally with n digits.",
+				"",
+				"```stos",
+				"print hex$(255)",
+				"```"
+			],
+			"manual": 225
+		},
+		{
+			"name": "bin$",
+			"kind": "function",
+			"category": "Strings",
+			"source": "STOS",
+			"syntax": [
+				"=BIN$(x)",
+				"=BIN$(x,n)"
+			],
+			"doc": [
+				"The number as a binary string starting with %, optionally with n digits.",
+				"",
+				"```stos",
+				"print bin$(5)",
+				"```"
+			],
+			"manual": 225
+		},
+		{
+			"name": "listbank",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"LISTBANK"
+			],
+			"doc": [
+				"Shows the banks in use with their number, type, address and size.",
+				"",
+				"```stos",
+				"listbank",
+				"```"
+			],
+			"manual": 51
+		},
+		{
+			"name": "reserve as screen",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"RESERVE AS SCREEN bank"
+			],
+			"doc": [
+				"Reserves a temporary bank big enough for a whole screen. Temporary banks are not saved with the program.",
+				"",
+				"```stos",
+				"reserve as screen 5",
+				"```"
+			],
+			"manual": 52
+		},
+		{
+			"name": "reserve as datascreen",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"RESERVE AS DATASCREEN bank"
+			],
+			"doc": [
+				"Reserves a permanent bank for a screen; it is saved with the program.",
+				"",
+				"```stos",
+				"reserve as datascreen 6",
+				"```"
+			],
+			"manual": 52
+		},
+		{
+			"name": "reserve as work",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"RESERVE AS WORK bank,length"
+			],
+			"doc": [
+				"Reserves a temporary work area of length bytes (rounded up to 256). Banks 1 to 4 are best left to the system.",
+				"",
+				"```stos",
+				"reserve as work 10,1000",
+				"```"
+			],
+			"manual": 52
+		},
+		{
+			"name": "reserve as data",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"RESERVE AS DATA bank,length"
+			],
+			"doc": [
+				"Reserves a permanent bank of length bytes that is saved with the program.",
+				"",
+				"```stos",
+				"reserve as data 7,10000",
+				"```"
+			],
+			"manual": 52
+		},
+		{
+			"name": "reserve as set",
+			"kind": "keyword",
+			"category": "Character sets",
+			"source": "STOS",
+			"syntax": [
+				"RESERVE AS SET bank,length"
+			],
+			"doc": [
+				"Reserves a permanent bank for a character set (font). See CHARCOPY and CHARLEN.",
+				"",
+				"```stos",
+				"reserve as set 5,4000",
+				"```"
+			],
+			"manual": 176
+		},
+		{
+			"name": "bcopy",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"BCOPY #source TO #dest"
+			],
+			"doc": [
+				"Copies a whole bank to another bank number (1 to 15).",
+				"",
+				"```stos",
+				"bcopy 5 to 6",
+				"```"
+			],
+			"manual": 53
+		},
+		{
+			"name": "bgrab",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"BGRAB prgno [,b]"
+			],
+			"doc": [
+				"Copies all banks, or only bank b, from another program segment into the current program.",
+				"",
+				"```stos",
+				"bgrab 2,1",
+				"```"
+			],
+			"manual": 53
+		},
+		{
+			"name": "erase",
+			"kind": "keyword",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"ERASE b"
+			],
+			"doc": [
+				"Deletes bank b and frees its memory.",
+				"",
+				"```stos",
+				"erase 5",
+				"```"
+			],
+			"manual": 53
+		},
+		{
+			"name": "start",
+			"kind": "function",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"=START(b)",
+				"=START(prgno,b)"
+			],
+			"doc": [
+				"The address in memory where bank b begins, of the current program or of program prgno.",
+				"",
+				"```stos",
+				"A=start(5)",
+				"```"
+			],
+			"manual": 54
+		},
+		{
+			"name": "length",
+			"kind": "function",
+			"category": "Memory banks",
+			"source": "STOS",
+			"syntax": [
+				"=LENGTH(b)",
+				"=LENGTH(prgno,b)"
+			],
+			"doc": [
+				"The size of bank b in bytes; 0 means the bank does not exist.",
+				"",
+				"```stos",
+				"print length(1)",
+				"```"
+			],
+			"manual": 54
+		},
+		{
+			"name": "save",
+			"kind": "keyword",
+			"category": "Loading and saving",
+			"source": "STOS",
+			"syntax": [
+				"SAVE file$",
+				"SAVE file$,bank"
+			],
+			"doc": [
+				"Saves according to the extension: .BAS a program, .ASC the listing as text, .MBK one bank (give its number), .MBS all banks, .VAR the variables, .PI1/.PI2/.PI3 or .NEO a screen, .PRG a program that runs from the desktop.",
+				"",
+				"```stos",
+				"save \"GAME.BAS\"",
+				"save \"SPRITES.MBK\",1",
+				"```"
+			],
+			"manual": 54
+		},
+		{
+			"name": "load",
+			"kind": "keyword",
+			"category": "Loading and saving",
+			"source": "STOS",
+			"syntax": [
+				"LOAD file$",
+				"LOAD file$,bank"
+			],
+			"doc": [
+				"Loads according to the extension: a program, banks, variables or a picture. Pictures and banks can be loaded into a given bank or screen (for example `,back`).",
+				"",
+				"```stos",
+				"load \"SPRITES.MBK\"",
+				"load \"TITLE.PI1\",back",
+				"```"
+			],
+			"manual": 57
+		},
+		{
+			"name": "bsave",
+			"kind": "keyword",
+			"category": "Loading and saving",
+			"source": "STOS",
+			"syntax": [
+				"BSAVE file$,start TO end"
+			],
+			"doc": [
+				"Saves the memory from start to end to a file as raw bytes.",
+				"",
+				"```stos",
+				"bsave \"DATA.BIN\",start(5) to start(5)+length(5)",
+				"```"
+			],
+			"manual": 56
+		},
+		{
+			"name": "bload",
+			"kind": "keyword",
+			"category": "Loading and saving",
+			"source": "STOS",
+			"syntax": [
+				"BLOAD file$,addr",
+				"BLOAD file$,#bank"
+			],
+			"doc": [
+				"Loads a file unchanged into memory at an address or into a bank.",
+				"",
+				"```stos",
+				"bload \"DATA.BIN\",#5",
+				"```"
+			],
+			"manual": 60
+		},
+		{
+			"name": "accload",
+			"kind": "keyword",
+			"category": "Accessories",
+			"source": "STOS",
+			"syntax": [
+				"ACCLOAD file$",
+				"ACCLOAD \"*\""
+			],
+			"doc": [
+				"Loads an accessory (.ACB) so it can be called from the Help menu. `ACCLOAD \"*\"` loads every accessory on the disc.",
+				"",
+				"```stos",
+				"accload \"SPRITE.ACB\"",
+				"```"
+			],
+			"manual": 61
+		},
+		{
+			"name": "accnew",
+			"kind": "keyword",
+			"category": "Accessories",
+			"source": "STOS",
+			"syntax": [
+				"ACCNEW"
+			],
+			"doc": [
+				"Removes all loaded accessories from memory.",
+				"",
+				"```stos",
+				"accnew : accload \"MUSIC.ACB\"",
+				"```"
+			],
+			"manual": 61
+		},
+		{
+			"name": "accnb",
+			"kind": "function",
+			"category": "Accessories",
+			"source": "STOS",
+			"syntax": [
+				"=ACCNB"
+			],
+			"doc": [
+				"Inside a program: 0 when it runs normally, or its program number (4 to 15) when it runs as an accessory.",
+				"",
+				"```stos",
+				"if accnb then print \"Running as an accessory\"",
+				"```"
+			],
+			"manual": 63
+		},
+		{
+			"name": "sprite",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"SPRITE n,x,y,p"
+			],
+			"doc": [
+				"Shows sprite n (1 to 15) at screen position x,y with image p from the sprite bank (bank 1). The position is that of the image's hot spot.",
+				"",
+				"```stos",
+				"sprite 1,160,100,1",
+				"```"
+			],
+			"manual": 87
+		},
+		{
+			"name": "move x",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"MOVE X n,m$"
+			],
+			"doc": [
+				"Gives sprite n a list of horizontal moves. Each move is `(speed,step,count)`: wait speed/50 s between steps, move step pixels (negative = left), count times (0 = forever). `L` at the end loops the list; `E` followed by a position stops the sprite there. Start it with MOVE ON.",
+				"",
+				"```stos",
+				"move x 1,\"(1,4,50)(1,-4,50)L\" : move on",
+				"```"
+			],
+			"manual": 88
+		},
+		{
+			"name": "move y",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"MOVE Y n,m$"
+			],
+			"doc": [
+				"Like MOVE X, but vertical: a positive step moves the sprite down.",
+				"",
+				"```stos",
+				"move y 1,\"(2,2,0)E180\" : move on",
+				"```"
+			],
+			"manual": 90
+		},
+		{
+			"name": "move",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"MOVE ON/OFF [n]",
+				"MOVE FREEZE [n]"
+			],
+			"doc": [
+				"MOVE ON starts the moves set by MOVE X / MOVE Y, MOVE OFF stops them, MOVE FREEZE pauses them (MOVE ON continues). Without n all sprites are affected.",
+				"",
+				"```stos",
+				"move on 1",
+				"```"
+			],
+			"manual": 91
+		},
+		{
+			"name": "movon",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=MOVON(n)"
+			],
+			"doc": [
+				"Not zero while sprite n is still moving, 0 when it stands still.",
+				"",
+				"```stos",
+				"if movon(1)=0 then print \"Stopped\"",
+				"```"
+			],
+			"manual": 92
+		},
+		{
+			"name": "x sprite",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=X SPRITE(n)"
+			],
+			"doc": [
+				"The x position of sprite n.",
+				"",
+				"```stos",
+				"print x sprite(1)",
+				"```"
+			],
+			"manual": 92
+		},
+		{
+			"name": "y sprite",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=Y SPRITE(n)"
+			],
+			"doc": [
+				"The y position of sprite n.",
+				"",
+				"```stos",
+				"print y sprite(1)",
+				"```"
+			],
+			"manual": 92
+		},
+		{
+			"name": "limit sprite",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"LIMIT SPRITE x1,y1 TO x2,y2",
+				"LIMIT SPRITE"
+			],
+			"doc": [
+				"Sprites are only drawn inside this rectangle; parts outside are cut off. Their positions are not limited. Without values the whole screen is used again.",
+				"",
+				"```stos",
+				"limit sprite 0,0 to 160,100",
+				"```"
+			],
+			"manual": 93
+		},
+		{
+			"name": "anim",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"ANIM n,a$",
+				"ANIM ON/OFF [n]",
+				"ANIM FREEZE [n]"
+			],
+			"doc": [
+				"Animates sprite n through a list of images. Each step is `(image,delay)` with the delay in 50ths of a second; `L` loops. ANIM ON starts, ANIM OFF stops, ANIM FREEZE pauses; without n all sprites.",
+				"",
+				"```stos",
+				"anim 1,\"(1,10)(2,10)(3,10)L\" : anim on",
+				"```"
+			],
+			"manual": 93
+		},
+		{
+			"name": "collide",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=COLLIDE(n,w,h)"
+			],
+			"doc": [
+				"Tests whether other sprites touch a box of w by h pixels around the hot spot of sprite n (0 = mouse). The result has one bit per sprite that touches it (bit 1 = sprite 1, ...); 0 means no collision.",
+				"",
+				"```stos",
+				"if collide(1,10,10) then boom",
+				"if btst(2,collide(1,10,10)) then print \"Hit sprite 2\"",
+				"```"
+			],
+			"manual": 100
+		},
+		{
+			"name": "set zone",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"SET ZONE z,x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Defines rectangle number z on the screen, to be tested later with ZONE.",
+				"",
+				"```stos",
+				"set zone 1,0,0 to 100,50",
+				"```"
+			],
+			"manual": 102
+		},
+		{
+			"name": "zone",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=ZONE(n)"
+			],
+			"doc": [
+				"The number of the first zone (made with SET ZONE) that sprite n is in, or 0. Sprite 0 is the mouse pointer.",
+				"",
+				"```stos",
+				"if zone(0)=1 then print \"Mouse in zone 1\"",
+				"```"
+			],
+			"manual": 102
+		},
+		{
+			"name": "reset zone",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"RESET ZONE [z]"
+			],
+			"doc": [
+				"Removes zone z, or all zones.",
+				"",
+				"```stos",
+				"reset zone",
+				"```"
+			],
+			"manual": 102
+		},
+		{
+			"name": "detect",
+			"kind": "function",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"=DETECT(n)"
+			],
+			"doc": [
+				"The colour of the background pixel under the hot spot of sprite n (0 = mouse), useful to test collisions with the scenery.",
+				"",
+				"```stos",
+				"if detect(1)=4 then print \"On the water\"",
+				"```"
+			],
+			"manual": 103
+		},
+		{
+			"name": "put sprite",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"PUT SPRITE n"
+			],
+			"doc": [
+				"Stamps a copy of sprite n onto the screen as part of the background. The sprite itself is not changed. Use WAIT VBL after it.",
+				"",
+				"```stos",
+				"put sprite 1 : wait vbl",
+				"```"
+			],
+			"manual": 103
+		},
+		{
+			"name": "get sprite",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"GET SPRITE x,y,i [,mask]"
+			],
+			"doc": [
+				"Grabs the screen area at x,y into existing image i of the sprite bank (same size as that image). The hot spot is set to x,y. The mask is the colour treated as transparent (0 when left out). The area must be fully on screen.",
+				"",
+				"```stos",
+				"get sprite 0,0,2",
+				"```"
+			],
+			"manual": 104
+		},
+		{
+			"name": "priority",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"PRIORITY ON/OFF"
+			],
+			"doc": [
+				"Sprite order on screen. OFF (normal): lower sprite numbers appear in front. ON: sprites lower on the screen (larger y) appear in front, which gives a sense of depth.",
+				"",
+				"```stos",
+				"priority on",
+				"```"
+			],
+			"manual": 105
+		},
+		{
+			"name": "autoback",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"AUTOBACK ON/OFF"
+			],
+			"doc": [
+				"Normally graphics are drawn both on the screen and on the hidden background screen used by sprites. AUTOBACK OFF draws only on the screen: much faster, but moving sprites will wipe the drawing away.",
+				"",
+				"```stos",
+				"autoback off : circle 100,100,50",
+				"```"
+			],
+			"manual": 106
+		},
+		{
+			"name": "update",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"UPDATE",
+				"UPDATE ON/OFF"
+			],
+			"doc": [
+				"UPDATE OFF stops sprites being redrawn automatically (they still move, but invisibly); UPDATE redraws the changed sprites once; UPDATE ON goes back to normal.",
+				"",
+				"```stos",
+				"update off : update",
+				"```"
+			],
+			"manual": 107
+		},
+		{
+			"name": "redraw",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"REDRAW"
+			],
+			"doc": [
+				"Redraws all sprites at their current positions, changed or not.",
+				"",
+				"```stos",
+				"redraw",
+				"```"
+			],
+			"manual": 108
+		},
+		{
+			"name": "off",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"OFF"
+			],
+			"doc": [
+				"Stops all sprite moves and animations and removes the sprites from the screen. Function key f10 does this in the editor.",
+				"",
+				"```stos",
+				"off",
+				"```"
+			],
+			"manual": 108
+		},
+		{
+			"name": "freeze",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"FREEZE"
+			],
+			"doc": [
+				"Pauses all sprite moves, animations and music. UNFREEZE carries on.",
+				"",
+				"```stos",
+				"freeze : wait key : unfreeze",
+				"```"
+			],
+			"manual": 108
+		},
+		{
+			"name": "unfreeze",
+			"kind": "keyword",
+			"category": "Sprites",
+			"source": "STOS",
+			"syntax": [
+				"UNFREEZE"
+			],
+			"doc": [
+				"Continues sprite movements and music paused by FREEZE.",
+				"",
+				"```stos",
+				"unfreeze",
+				"```"
+			],
+			"manual": 108
+		},
+		{
+			"name": "change mouse",
+			"kind": "keyword",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"CHANGE MOUSE m"
+			],
+			"doc": [
+				"Changes the mouse pointer: 1 arrow (default), 2 pointing hand, 3 clock. Higher numbers use an image from the sprite bank.",
+				"",
+				"```stos",
+				"change mouse 2",
+				"```"
+			],
+			"manual": 96,
+			"unclear": "How m maps to a sprite image number is cut off in the OCR; check page 96."
+		},
+		{
+			"name": "x mouse",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=X MOUSE"
+			],
+			"doc": [
+				"The x position of the mouse pointer (also when it is hidden).",
+				"",
+				"```stos",
+				"print x mouse",
+				"```"
+			],
+			"manual": 96
+		},
+		{
+			"name": "y mouse",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=Y MOUSE"
+			],
+			"doc": [
+				"The y position of the mouse pointer (also when it is hidden).",
+				"",
+				"```stos",
+				"print y mouse",
+				"```"
+			],
+			"manual": 97
+		},
+		{
+			"name": "mouse key",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=MOUSE KEY"
+			],
+			"doc": [
+				"Which mouse buttons are held: 0 none, 1 left, 2 right, 3 both.",
+				"",
+				"```stos",
+				"if mouse key=1 then print \"Left button\"",
+				"```"
+			],
+			"manual": 97,
+			"unclear": "The value table is garbled in the OCR; check page 97."
+		},
+		{
+			"name": "limit mouse",
+			"kind": "keyword",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"LIMIT MOUSE x1,y1 TO x2,y2",
+				"LIMIT MOUSE"
+			],
+			"doc": [
+				"Keeps the mouse pointer inside a rectangle. Without values the whole screen is allowed again.",
+				"",
+				"```stos",
+				"limit mouse 0,0 to 319,99",
+				"```"
+			],
+			"manual": 97
+		},
+		{
+			"name": "hide",
+			"kind": "keyword",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"HIDE [ON]"
+			],
+			"doc": [
+				"Makes the mouse pointer invisible; X MOUSE and Y MOUSE still work. Each HIDE must be matched by a SHOW before the pointer comes back. HIDE ON hides it regardless of that count.",
+				"",
+				"```stos",
+				"hide on",
+				"```"
+			],
+			"manual": 98
+		},
+		{
+			"name": "show",
+			"kind": "keyword",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"SHOW [ON]"
+			],
+			"doc": [
+				"Shows the mouse pointer again; it needs as many SHOWs as there were HIDEs. SHOW ON shows it regardless of the count.",
+				"",
+				"```stos",
+				"show on",
+				"```"
+			],
+			"manual": 98
+		},
+		{
+			"name": "joy",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=JOY"
+			],
+			"doc": [
+				"Reads the joystick as a number with one bit per direction (up, down, left, right) and one for the fire button.",
+				"",
+				"```stos",
+				"if joy and 1 then print \"Up\"",
+				"```"
+			],
+			"manual": 98,
+			"unclear": "The bit numbers are missing in the OCR (example uses `joy and 15` for the four directions); check page 99."
+		},
+		{
+			"name": "jleft",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=JLEFT"
+			],
+			"doc": [
+				"True (-1) while the joystick is pushed left, else false (0).",
+				"",
+				"```stos",
+				"if jleft then X=X-2",
+				"```"
+			],
+			"manual": 99
+		},
+		{
+			"name": "jright",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=JRIGHT"
+			],
+			"doc": [
+				"True (-1) while the joystick is pushed right.",
+				"",
+				"```stos",
+				"if jright then X=X+2",
+				"```"
+			],
+			"manual": 99
+		},
+		{
+			"name": "jup",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=JUP"
+			],
+			"doc": [
+				"True (-1) while the joystick is pushed up.",
+				"",
+				"```stos",
+				"if jup then Y=Y-2",
+				"```"
+			],
+			"manual": 99
+		},
+		{
+			"name": "jdown",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=JDOWN"
+			],
+			"doc": [
+				"True (-1) while the joystick is pulled down.",
+				"",
+				"```stos",
+				"if jdown then Y=Y+2",
+				"```"
+			],
+			"manual": 100
+		},
+		{
+			"name": "fire",
+			"kind": "function",
+			"category": "Mouse and joystick",
+			"source": "STOS",
+			"syntax": [
+				"=FIRE"
+			],
+			"doc": [
+				"True (-1) while the fire button is pressed.",
+				"",
+				"```stos",
+				"if fire then shoot",
+				"```"
+			],
+			"manual": 100
+		},
+		{
+			"name": "play",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"PLAY [voice,]pitch,duration"
+			],
+			"doc": [
+				"Plays one note. pitch goes from 1 (low) to 96 (high) in semitones, 12 per octave; 0 just waits. duration is in 50ths of a second. voice is 1 to 3; without it all three voices play. The program waits until the note ends.",
+				"",
+				"```stos",
+				"play 37,25",
+				"```"
+			],
+			"manual": 109
+		},
+		{
+			"name": "volume",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"VOLUME [v,]intensity"
+			],
+			"doc": [
+				"Sets the loudness from 0 (silent) to 15 (loud) for voice v, or all voices. 16 hands the volume to the envelope set with ENVEL.",
+				"",
+				"```stos",
+				"volume 15",
+				"```"
+			],
+			"manual": 110
+		},
+		{
+			"name": "click",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"CLICK ON/OFF"
+			],
+			"doc": [
+				"Turns the key click on or off. Switch it off when playing sounds, as key presses would cut them off.",
+				"",
+				"```stos",
+				"click off",
+				"```"
+			],
+			"manual": 111
+		},
+		{
+			"name": "music",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"MUSIC n",
+				"MUSIC OFF",
+				"MUSIC ON",
+				"MUSIC FREEZE"
+			],
+			"doc": [
+				"MUSIC n plays tune n (1 to 32) from the music bank (bank 3, made with the music accessory) in the background while the program goes on. MUSIC OFF stops it, MUSIC FREEZE pauses it, MUSIC ON starts again (from the pause after FREEZE).",
+				"",
+				"```stos",
+				"load \"MUSIC.MBK\" : music 1",
+				"```"
+			],
+			"manual": 111
+		},
+		{
+			"name": "tempo",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"TEMPO s"
+			],
+			"doc": [
+				"Speed of the music played by MUSIC, from 1 (very slow) to 100 (very fast).",
+				"",
+				"```stos",
+				"tempo 50",
+				"```"
+			],
+			"manual": 112
+		},
+		{
+			"name": "transpose",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"TRANSPOSE df"
+			],
+			"doc": [
+				"Shifts the music played by MUSIC by df semitones (-90 to +90); negative is lower.",
+				"",
+				"```stos",
+				"transpose -12",
+				"```"
+			],
+			"manual": 113
+		},
+		{
+			"name": "pvoice",
+			"kind": "function",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"=PVOICE(v)"
+			],
+			"doc": [
+				"Where the music on voice v has got to (the address of the note being played); 0 when that voice plays nothing.",
+				"",
+				"```stos",
+				"print pvoice(1)",
+				"```"
+			],
+			"manual": 113
+		},
+		{
+			"name": "voice",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"VOICE ON/OFF [v]"
+			],
+			"doc": [
+				"Mutes (OFF) or unmutes (ON) voice v of the music, or all three voices.",
+				"",
+				"```stos",
+				"voice off 2",
+				"```"
+			],
+			"manual": 113
+		},
+		{
+			"name": "boom",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"BOOM"
+			],
+			"doc": [
+				"Explosion sound. Turn off the key click and freeze any music first for a clean result.",
+				"",
+				"```stos",
+				"click off : boom",
+				"```"
+			],
+			"manual": 123
+		},
+		{
+			"name": "shoot",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"SHOOT"
+			],
+			"doc": [
+				"Gunshot sound.",
+				"",
+				"```stos",
+				"shoot",
+				"```"
+			],
+			"manual": 123
+		},
+		{
+			"name": "bell",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"BELL"
+			],
+			"doc": [
+				"A short bell sound.",
+				"",
+				"```stos",
+				"bell",
+				"```"
+			],
+			"manual": 123
+		},
+		{
+			"name": "noise",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"NOISE [v,]p"
+			],
+			"doc": [
+				"Plays a hiss, like wind, on voice v or all voices. p goes from 1 (high) to 31 (low). It keeps sounding while the program runs; shape it with ENVEL.",
+				"",
+				"```stos",
+				"noise 10",
+				"```"
+			],
+			"manual": 124
+		},
+		{
+			"name": "envel",
+			"kind": "keyword",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"ENVEL type,speed"
+			],
+			"doc": [
+				"Applies one of the sound chip's envelope shapes (type 1 to 15) to sounds from PLAY and NOISE; speed sets how long one cycle lasts (larger is slower). Set VOLUME 16 first.",
+				"",
+				"```stos",
+				"volume 16 : noise 10 : envel 10,1000",
+				"```"
+			],
+			"manual": 124
+		},
+		{
+			"name": "psg",
+			"kind": "function",
+			"category": "Sound",
+			"source": "STOS",
+			"syntax": [
+				"=PSG(r)",
+				"PSG(r)=value"
+			],
+			"doc": [
+				"Reads or writes register r of the ST's sound chip directly, for effects the other sound commands cannot make.",
+				"",
+				"```stos",
+				"print psg(7)",
+				"```"
+			],
+			"manual": 271,
+			"unclear": "Described in the appendix on the sound chip; check the register list on page 271."
+		},
+		{
+			"name": "cls",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"CLS",
+				"CLS scr",
+				"CLS scr,col",
+				"CLS scr,col,x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Clears the whole screen, or a given screen (PHYSIC, BACK, LOGIC or a screen bank), optionally with colour col and only inside a rectangle.",
+				"",
+				"```stos",
+				"cls physic,0,10,10 to 100,100",
+				"```"
+			],
+			"manual": 127
+		},
+		{
+			"name": "ink",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"INK index"
+			],
+			"doc": [
+				"Colour (palette index) used by the drawing commands that follow.",
+				"",
+				"```stos",
+				"ink 3 : bar 10,10 to 50,50",
+				"```"
+			],
+			"manual": 127
+		},
+		{
+			"name": "colour",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"COLOUR index,$RGB"
+			],
+			"doc": [
+				"Sets palette entry index to a colour from 512, written as $RGB with each part 0 to 7.",
+				"",
+				"```stos",
+				"colour 1,$700",
+				"```"
+			],
+			"manual": 127
+		},
+		{
+			"name": "colour",
+			"kind": "function",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"=COLOUR(index)"
+			],
+			"doc": [
+				"The $RGB value now assigned to palette entry index.",
+				"",
+				"```stos",
+				"print hex$(colour(1))",
+				"```"
+			],
+			"manual": 128
+		},
+		{
+			"name": "palette",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"PALETTE list of colours"
+			],
+			"doc": [
+				"Sets several palette entries at once, from entry 0 onward.",
+				"",
+				"```stos",
+				"palette $000,$700,$070,$007",
+				"```"
+			],
+			"manual": 128
+		},
+		{
+			"name": "plot",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"PLOT x,y [,index]"
+			],
+			"doc": [
+				"Sets one pixel to the ink colour, or to colour index.",
+				"",
+				"```stos",
+				"plot 160,100,2",
+				"```"
+			],
+			"manual": 129
+		},
+		{
+			"name": "point",
+			"kind": "function",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"=POINT(x,y)"
+			],
+			"doc": [
+				"The colour index of the pixel at x,y.",
+				"",
+				"```stos",
+				"C=point(10,10)",
+				"```"
+			],
+			"manual": 129
+		},
+		{
+			"name": "draw",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"DRAW x1,y1 TO x2,y2",
+				"DRAW TO x3,y3"
+			],
+			"doc": [
+				"Draws a line between two points, or from the last point drawn to a new one.",
+				"",
+				"```stos",
+				"draw 0,0 to 319,199 : draw to 0,199",
+				"```"
+			],
+			"manual": 129
+		},
+		{
+			"name": "box",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"BOX x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Draws an outlined rectangle between two corners.",
+				"",
+				"```stos",
+				"box 10,10 to 100,60",
+				"```"
+			],
+			"manual": 130
+		},
+		{
+			"name": "rbox",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"RBOX x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Like BOX, with rounded corners.",
+				"",
+				"```stos",
+				"rbox 10,10 to 100,60",
+				"```"
+			],
+			"manual": 130
+		},
+		{
+			"name": "polyline",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"POLYLINE x1,y1 TO x2,y2 TO x3,y3 ..."
+			],
+			"doc": [
+				"Draws connected lines through all the points in one go.",
+				"",
+				"```stos",
+				"polyline 10,10 to 100,10 to 55,80 to 10,10",
+				"```"
+			],
+			"manual": 130
+		},
+		{
+			"name": "arc",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"ARC x1,y1,r,start,end"
+			],
+			"doc": [
+				"Draws part of a circle around x1,y1 with radius r, between two angles given in tenths of a degree (0 to 3600).",
+				"",
+				"```stos",
+				"arc 160,100,50,0,1800",
+				"```"
+			],
+			"manual": 131
+		},
+		{
+			"name": "earc",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"EARC x1,y1,r1,r2,start,end"
+			],
+			"doc": [
+				"Like ARC, but part of an ellipse with horizontal radius r1 and vertical radius r2.",
+				"",
+				"```stos",
+				"earc 160,100,80,40,0,1800",
+				"```"
+			],
+			"manual": 131
+		},
+		{
+			"name": "set line",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"SET LINE mask,thickness,startpoint,endpoint"
+			],
+			"doc": [
+				"Line style: mask is a 16-bit pattern (1 = drawn, 0 = gap), thickness 1 to 40, and each end can be 0 square, 1 arrow or 2 round.",
+				"",
+				"```stos",
+				"set line %1111000011110000,1,0,0",
+				"```"
+			],
+			"manual": 132
+		},
+		{
+			"name": "paint",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"PAINT x1,y1"
+			],
+			"doc": [
+				"Flood-fills the closed shape around x1,y1 with the ink colour and the fill style from SET PAINT.",
+				"",
+				"```stos",
+				"box 10,10 to 50,50 : paint 20,20",
+				"```"
+			],
+			"manual": 133
+		},
+		{
+			"name": "bar",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"BAR x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Draws a filled rectangle.",
+				"",
+				"```stos",
+				"bar 10,10 to 100,60",
+				"```"
+			],
+			"manual": 133
+		},
+		{
+			"name": "rbar",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"RBAR x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Draws a filled rectangle with rounded corners.",
+				"",
+				"```stos",
+				"rbar 10,10 to 100,60",
+				"```"
+			],
+			"manual": 134
+		},
+		{
+			"name": "polygon",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"POLYGON x1,y1 TO x2,y2 TO x3,y3 ..."
+			],
+			"doc": [
+				"Like POLYLINE but filled.",
+				"",
+				"```stos",
+				"polygon 10,10 to 100,10 to 55,80",
+				"```"
+			],
+			"manual": 134
+		},
+		{
+			"name": "circle",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"CIRCLE x1,y1,r"
+			],
+			"doc": [
+				"Draws a filled circle around x1,y1 with radius r, using INK and SET PAINT.",
+				"",
+				"```stos",
+				"circle 160,100,40",
+				"```"
+			],
+			"manual": 134
+		},
+		{
+			"name": "pie",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"PIE x1,y1,r,start,end"
+			],
+			"doc": [
+				"A filled slice of a circle (a filled ARC), for pie charts.",
+				"",
+				"```stos",
+				"pie 160,100,50,0,900",
+				"```"
+			],
+			"manual": 135
+		},
+		{
+			"name": "ellipse",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"ELLIPSE x1,y1,r1,r2"
+			],
+			"doc": [
+				"Draws a filled ellipse with horizontal radius r1 and vertical radius r2.",
+				"",
+				"```stos",
+				"ellipse 160,100,80,40",
+				"```"
+			],
+			"manual": 135
+		},
+		{
+			"name": "epie",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"EPIE x1,y1,r1,r2,start,end"
+			],
+			"doc": [
+				"A filled slice of an ellipse.",
+				"",
+				"```stos",
+				"epie 160,100,80,40,0,900",
+				"```"
+			],
+			"manual": 136
+		},
+		{
+			"name": "set paint",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"SET PAINT type,pattern,border"
+			],
+			"doc": [
+				"Fill style for filled shapes: type 0 none, 1 solid, 2 dotted (pattern 1 to 24), 3 lined (pattern 1 to 12), 4 your own pattern from SET PATTERN. border chooses whether an outline is drawn.",
+				"",
+				"```stos",
+				"set paint 2,5,1 : bar 10,10 to 100,60",
+				"```"
+			],
+			"manual": 136
+		},
+		{
+			"name": "set pattern",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"SET PATTERN address",
+				"SET PATTERN a$"
+			],
+			"doc": [
+				"Installs your own fill pattern (16 by 16), used when SET PAINT type is 4: from an address (a bank, or VARPTR of a variable) or straight from a string, for example one taken with SCREEN$.",
+				"",
+				"```stos",
+				"A$=screen$(physic,0,0 to 16,16) : set pattern A$",
+				"```"
+			],
+			"manual": 137
+		},
+		{
+			"name": "flash",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"FLASH index,\"(col,delay)(col2,delay)...\"",
+				"FLASH OFF"
+			],
+			"doc": [
+				"Makes palette entry index cycle through a list of $RGB colours, each shown for delay 50ths of a second, in the background. FLASH OFF stops all flashing (entry 2 flashes by default).",
+				"",
+				"```stos",
+				"flash 1,\"(700,10)(007,10)\"",
+				"```"
+			],
+			"manual": 138
+		},
+		{
+			"name": "shift",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"SHIFT delay [,start]"
+			],
+			"doc": [
+				"Rotates the palette colours every delay 50ths of a second, from entry start (default 1) upward, for waterfall-style effects. SHIFT OFF stops it.",
+				"",
+				"```stos",
+				"shift 5",
+				"```"
+			],
+			"manual": 139,
+			"unclear": "SHIFT OFF is not in the OCR syntax line; check page 139."
+		},
+		{
+			"name": "gr writing",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"GR WRITING mode"
+			],
+			"doc": [
+				"How drawing combines with what is already there: 1 replace (default), 2 transparent, 3 XOR, 4 inverse transparent. Not the same as WRITING for text.",
+				"",
+				"```stos",
+				"gr writing 3",
+				"```"
+			],
+			"manual": 139
+		},
+		{
+			"name": "polymark",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"POLYMARK x1,y1;x2,y2;x3,y3;..."
+			],
+			"doc": [
+				"Draws a marker (chosen with SET MARK) at each point.",
+				"",
+				"```stos",
+				"polymark 100,100;200,100;300,100",
+				"```"
+			],
+			"manual": 140
+		},
+		{
+			"name": "set mark",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"SET MARK type,size"
+			],
+			"doc": [
+				"Marker for POLYMARK: 1 point, 2 plus, 3 star, 4 square, 5 diagonal cross, 6 diamond. size is the width in pixels, in eight steps from 6 to 83 (6, 17, 28, ...); the point has only one size.",
+				"",
+				"```stos",
+				"set mark 4,83",
+				"```"
+			],
+			"manual": 141
+		},
+		{
+			"name": "mode",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"MODE n"
+			],
+			"doc": [
+				"Switches a colour monitor between low resolution (0, 16 colours) and medium resolution (1, 4 colours).",
+				"",
+				"```stos",
+				"mode 0",
+				"```"
+			],
+			"manual": 142
+		},
+		{
+			"name": "mode",
+			"kind": "function",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"=MODE"
+			],
+			"doc": [
+				"The current resolution: 0 low, 1 medium, 2 high (monochrome).",
+				"",
+				"```stos",
+				"if mode=2 then print \"Monochrome\"",
+				"```"
+			],
+			"manual": 142
+		},
+		{
+			"name": "divx",
+			"kind": "function",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"=DIVX"
+			],
+			"doc": [
+				"Divide x coordinates by this to draw on a pretend 640 by 400 screen in any resolution: 2 in low resolution, 1 in medium and high.",
+				"",
+				"```stos",
+				"rbox 0,0 to 639/divx,399/divy",
+				"```"
+			],
+			"manual": 142
+		},
+		{
+			"name": "divy",
+			"kind": "function",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"=DIVY"
+			],
+			"doc": [
+				"Divide y coordinates by this: 2 in low and medium resolution, 1 in high. See DIVX.",
+				"",
+				"```stos",
+				"rbox 0,0 to 639/divx,399/divy",
+				"```"
+			],
+			"manual": 142
+		},
+		{
+			"name": "clip",
+			"kind": "keyword",
+			"category": "Graphics",
+			"source": "STOS",
+			"syntax": [
+				"CLIP x1,y1 TO x2,y2",
+				"CLIP OFF"
+			],
+			"doc": [
+				"Restricts all drawing to a rectangle; CLIP OFF removes the limit.",
+				"",
+				"```stos",
+				"clip 0,0 to 160,100",
+				"```"
+			],
+			"manual": 143
+		},
+		{
+			"name": "back",
+			"kind": "property",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=BACK",
+				"BACK=address"
+			],
+			"doc": [
+				"Address of the background screen that sprites restore behind them. Can be used wherever a screen is expected (CLS, LOAD, SCREEN COPY ...).",
+				"",
+				"```stos",
+				"screen copy physic to back",
+				"```"
+			],
+			"manual": 145
+		},
+		{
+			"name": "physic",
+			"kind": "property",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=PHYSIC",
+				"PHYSIC=address"
+			],
+			"doc": [
+				"Address of the screen being shown. Setting it shows another screen at once.",
+				"",
+				"```stos",
+				"physic=start(5)",
+				"```"
+			],
+			"manual": 145
+		},
+		{
+			"name": "logic",
+			"kind": "property",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=LOGIC",
+				"LOGIC=address"
+			],
+			"doc": [
+				"Address of the screen that text and graphics commands draw on; normally the same as PHYSIC. Drawing on a hidden logical screen and then using SCREEN SWAP gives flicker-free graphics.",
+				"",
+				"```stos",
+				"logic=back",
+				"```"
+			],
+			"manual": 146
+		},
+		{
+			"name": "screen swap",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"SCREEN SWAP"
+			],
+			"doc": [
+				"Exchanges the physical and logical screens, so the picture just drawn becomes visible. The swap takes effect at the next vertical blank (use WAIT VBL).",
+				"",
+				"```stos",
+				"screen swap : wait vbl",
+				"```"
+			],
+			"manual": 146
+		},
+		{
+			"name": "default physic",
+			"kind": "function",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=DEFAULT PHYSIC"
+			],
+			"doc": [
+				"The address the physical screen had when STOS started.",
+				"",
+				"```stos",
+				"physic=default physic",
+				"```"
+			],
+			"manual": 147
+		},
+		{
+			"name": "default logic",
+			"kind": "function",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=DEFAULT LOGIC"
+			],
+			"doc": [
+				"The address the logical screen had when STOS started.",
+				"",
+				"```stos",
+				"logic=default logic",
+				"```"
+			],
+			"manual": 147
+		},
+		{
+			"name": "default back",
+			"kind": "function",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=DEFAULT BACK"
+			],
+			"doc": [
+				"The address the background screen had when STOS started.",
+				"",
+				"```stos",
+				"back=default back",
+				"```"
+			],
+			"manual": 147
+		},
+		{
+			"name": "get palette",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"GET PALETTE(n)"
+			],
+			"doc": [
+				"Sets the colours to those stored with the screen in bank n (or at a screen address).",
+				"",
+				"```stos",
+				"load \"TITLE.PI1\",5 : get palette(5)",
+				"```"
+			],
+			"manual": 148
+		},
+		{
+			"name": "zoom",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"ZOOM scr1,x1,y1,x2,y2 TO [scr2,]x3,y3,x4,y4"
+			],
+			"doc": [
+				"Copies a rectangle of screen scr1 into a (usually larger) rectangle, stretching it. The target is the logical screen unless scr2 is given.",
+				"",
+				"```stos",
+				"zoom physic,0,0,80,50 to 0,0,319,199",
+				"```"
+			],
+			"manual": 149
+		},
+		{
+			"name": "reduce",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"REDUCE scr1 TO [scr2,]x1,y1,x2,y2"
+			],
+			"doc": [
+				"Shrinks the whole of screen scr1 into the rectangle x1,y1 to x2,y2; the opposite of ZOOM.",
+				"",
+				"```stos",
+				"reduce back to physic,0,0,159,99",
+				"```"
+			],
+			"manual": 151
+		},
+		{
+			"name": "screen copy",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"SCREEN COPY scr1 TO scr2",
+				"SCREEN COPY scr1,x1,y1,x2,y2 TO scr2,x3,y3"
+			],
+			"doc": [
+				"Copies a whole screen, or a rectangle of it, very fast to another screen. x coordinates are rounded down to a multiple of 16.",
+				"",
+				"```stos",
+				"screen copy back,0,0,160,100 to physic,160,100",
+				"```"
+			],
+			"manual": 152
+		},
+		{
+			"name": "screen$",
+			"kind": "function",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=SCREEN$(scrn,x1,y1 TO x2,y2)",
+				"SCREEN$(scrn,x,y)=a$"
+			],
+			"doc": [
+				"Stores a rectangle of a screen in a string, and puts such a string back at x,y. Good for moving blocks of graphics around.",
+				"",
+				"```stos",
+				"A$=screen$(physic,0,0 to 31,31) : screen$(physic,100,100)=A$",
+				"```"
+			],
+			"manual": 154
+		},
+		{
+			"name": "def scroll",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"DEF SCROLL n,x1,y1 TO x2,y2,dx,dy"
+			],
+			"doc": [
+				"Defines scrolling zone n (1 to 16): the rectangle and how far (dx, dy pixels) it moves each time SCROLL n is used. Not the window SCROLL UP / DOWN.",
+				"",
+				"```stos",
+				"def scroll 1,0,0 to 320,100,-8,0",
+				"```"
+			],
+			"manual": 155
+		},
+		{
+			"name": "scroll",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"SCROLL n",
+				"SCROLL ON/OFF"
+			],
+			"doc": [
+				"SCROLL n moves zone n as set by DEF SCROLL. SCROLL OFF / ON switch off or on the automatic scrolling of the current text window when the cursor passes the bottom (page 174).",
+				"",
+				"```stos",
+				"scroll 1",
+				"```"
+			],
+			"manual": 156
+		},
+		{
+			"name": "wait vbl",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"WAIT VBL"
+			],
+			"doc": [
+				"Waits for the next vertical blank (the start of a new screen picture, 50 times a second). Keeps animation smooth and lets screen changes take effect.",
+				"",
+				"```stos",
+				"screen swap : wait vbl",
+				"```"
+			],
+			"manual": 157
+		},
+		{
+			"name": "synchro",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"SYNCHRO ON/OFF",
+				"SYNCHRO"
+			],
+			"doc": [
+				"SYNCHRO OFF stops the automatic sprite moves every 50th of a second; SYNCHRO then performs one step of all moves, so they can be kept in step with scrolling. SYNCHRO ON goes back to normal.",
+				"",
+				"```stos",
+				"synchro off : synchro : synchro on",
+				"```"
+			],
+			"manual": 157
+		},
+		{
+			"name": "unpack",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"UNPACK bnk,scr"
+			],
+			"doc": [
+				"Unpacks a screen compressed with the screen compactor accessory (or PACK) from bank bnk onto screen scr.",
+				"",
+				"```stos",
+				"unpack 5,back",
+				"```"
+			],
+			"manual": 159
+		},
+		{
+			"name": "pack",
+			"kind": "function",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"=PACK(scr,bnk)"
+			],
+			"doc": [
+				"Compresses screen scr into bank bnk and returns the packed length.",
+				"",
+				"```stos",
+				"reserve as screen 5 : L=pack(physic,6)",
+				"```"
+			],
+			"manual": 160,
+			"unclear": "The syntax line reads `I=PACK scr,bnk` while the example uses `pack(5,6)`; check page 160."
+		},
+		{
+			"name": "appear",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"APPEAR x [,y]"
+			],
+			"doc": [
+				"Fades the picture at address or bank x onto the screen with a special effect y (1 to 79).",
+				"",
+				"```stos",
+				"appear back,5",
+				"```"
+			],
+			"manual": 160
+		},
+		{
+			"name": "fade",
+			"kind": "keyword",
+			"category": "Screen",
+			"source": "STOS",
+			"syntax": [
+				"FADE speed",
+				"FADE speed TO sbank",
+				"FADE speed,col1,col2,..."
+			],
+			"doc": [
+				"Gradually changes the palette in the background: to black, to the colours of the screen in bank sbank, or to a list of new colours. speed is the number of 50ths of a second between steps.",
+				"",
+				"```stos",
+				"fade 3 : wait 21",
+				"```"
+			],
+			"manual": 161
+		},
+		{
+			"name": "pen",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"PEN index"
+			],
+			"doc": [
+				"Colour of the text.",
+				"",
+				"```stos",
+				"pen 2 : print \"Red text\"",
+				"```"
+			],
+			"manual": 163
+		},
+		{
+			"name": "paper",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"PAPER index"
+			],
+			"doc": [
+				"Background colour behind the text.",
+				"",
+				"```stos",
+				"paper 1 : print \"Text on colour 1\"",
+				"```"
+			],
+			"manual": 163
+		},
+		{
+			"name": "inverse",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"INVERSE ON/OFF"
+			],
+			"doc": [
+				"Swaps the text and background colours for the text that follows.",
+				"",
+				"```stos",
+				"inverse on : print \"Inverse\" : inverse off",
+				"```"
+			],
+			"manual": 164
+		},
+		{
+			"name": "shade",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"SHADE ON/OFF"
+			],
+			"doc": [
+				"Prints the text that follows dimmed.",
+				"",
+				"```stos",
+				"shade on : print \"Not available\"",
+				"```"
+			],
+			"manual": 164
+		},
+		{
+			"name": "under",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"UNDER ON/OFF"
+			],
+			"doc": [
+				"Underlines the text that follows.",
+				"",
+				"```stos",
+				"under on : print \"Title\" : under off",
+				"```"
+			],
+			"manual": 164
+		},
+		{
+			"name": "writing",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"WRITING effect"
+			],
+			"doc": [
+				"How text combines with what is under it: 1 replace (default), 2 OR, 3 XOR. For graphics see GR WRITING.",
+				"",
+				"```stos",
+				"writing 3",
+				"```"
+			],
+			"manual": 165,
+			"unclear": "The card says OR is the default, the manual says replacement; check page 165."
+		},
+		{
+			"name": "locate",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"LOCATE x,y"
+			],
+			"doc": [
+				"Puts the text cursor at column x, row y of the current window.",
+				"",
+				"```stos",
+				"locate 10,5 : print \"Hello\"",
+				"```"
+			],
+			"manual": 165
+		},
+		{
+			"name": "xtext",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=XTEXT(x)"
+			],
+			"doc": [
+				"Converts a graphic x coordinate into a text column.",
+				"",
+				"```stos",
+				"print xtext(x mouse)",
+				"```"
+			],
+			"manual": 166
+		},
+		{
+			"name": "ytext",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=YTEXT(y)"
+			],
+			"doc": [
+				"Converts a graphic y coordinate into a text row.",
+				"",
+				"```stos",
+				"print ytext(y mouse)",
+				"```"
+			],
+			"manual": 166
+		},
+		{
+			"name": "xgraphic",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=XGRAPHIC(x)"
+			],
+			"doc": [
+				"Converts a text column into a graphic x coordinate.",
+				"",
+				"```stos",
+				"plot xgraphic(10),ygraphic(5)",
+				"```"
+			],
+			"manual": 166
+		},
+		{
+			"name": "ygraphic",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=YGRAPHIC(y)"
+			],
+			"doc": [
+				"Converts a text row into a graphic y coordinate.",
+				"",
+				"```stos",
+				"plot xgraphic(10),ygraphic(5)",
+				"```"
+			],
+			"manual": 167
+		},
+		{
+			"name": "square",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"SQUARE wx,hy,border"
+			],
+			"doc": [
+				"Draws a box wx characters wide and hy high at the text cursor, with border style border (1 to 16).",
+				"",
+				"```stos",
+				"locate 5,5 : square 10,4,1",
+				"```"
+			],
+			"manual": 167
+		},
+		{
+			"name": "home",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"HOME"
+			],
+			"doc": [
+				"Moves the text cursor to the top left of the current window.",
+				"",
+				"```stos",
+				"home : print \"Top\"",
+				"```"
+			],
+			"manual": 167
+		},
+		{
+			"name": "cdown",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CDOWN"
+			],
+			"doc": [
+				"Moves the text cursor down one line.",
+				"",
+				"```stos",
+				"cdown",
+				"```"
+			],
+			"manual": 167
+		},
+		{
+			"name": "cup",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CUP"
+			],
+			"doc": [
+				"Moves the text cursor up one line.",
+				"",
+				"```stos",
+				"cup",
+				"```"
+			],
+			"manual": 168
+		},
+		{
+			"name": "cleft",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CLEFT"
+			],
+			"doc": [
+				"Moves the text cursor one place left.",
+				"",
+				"```stos",
+				"cleft",
+				"```"
+			],
+			"manual": 168
+		},
+		{
+			"name": "cright",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CRIGHT"
+			],
+			"doc": [
+				"Moves the text cursor one place right.",
+				"",
+				"```stos",
+				"cright",
+				"```"
+			],
+			"manual": 168
+		},
+		{
+			"name": "xcurs",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=XCURS"
+			],
+			"doc": [
+				"The column of the text cursor.",
+				"",
+				"```stos",
+				"print xcurs",
+				"```"
+			],
+			"manual": 168
+		},
+		{
+			"name": "ycurs",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=YCURS"
+			],
+			"doc": [
+				"The row of the text cursor.",
+				"",
+				"```stos",
+				"print ycurs",
+				"```"
+			],
+			"manual": 168
+		},
+		{
+			"name": "set curs",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"SET CURS top,base"
+			],
+			"doc": [
+				"Sets the height of the text cursor: its top and bottom line inside the character (1 to 8 in low and medium resolution).",
+				"",
+				"```stos",
+				"set curs 7,8",
+				"```"
+			],
+			"manual": 169
+		},
+		{
+			"name": "curs",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CURS ON/OFF"
+			],
+			"doc": [
+				"Shows or hides the flashing text cursor.",
+				"",
+				"```stos",
+				"curs off",
+				"```"
+			],
+			"manual": 169
+		},
+		{
+			"name": "centre",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"CENTRE a$"
+			],
+			"doc": [
+				"Prints a$ centred on the cursor's line.",
+				"",
+				"```stos",
+				"locate 0,10 : centre \"GAME OVER\"",
+				"```"
+			],
+			"manual": 169
+		},
+		{
+			"name": "tab",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"TAB(n)"
+			],
+			"doc": [
+				"Used in PRINT: moves the cursor n places to the right.",
+				"",
+				"```stos",
+				"print \"A\";tab(10);\"B\"",
+				"```"
+			],
+			"manual": 169
+		},
+		{
+			"name": "scrn",
+			"kind": "function",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"=SCRN(x,y)"
+			],
+			"doc": [
+				"The Ascii code of the character shown at text position x,y.",
+				"",
+				"```stos",
+				"print chr$(scrn(0,0))",
+				"```"
+			],
+			"manual": 170
+		},
+		{
+			"name": "windopen",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"WINDOPEN n,x1,y1,w,h[,border[,set]]"
+			],
+			"doc": [
+				"Opens text window n at column x1, row y1, w characters wide and h high, with an optional border style (1 to 16) and character set. It becomes the current window.",
+				"",
+				"```stos",
+				"windopen 1,5,5,30,10,1",
+				"```"
+			],
+			"manual": 170
+		},
+		{
+			"name": "title",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"TITLE a$"
+			],
+			"doc": [
+				"Writes a title into the top border of the current window.",
+				"",
+				"```stos",
+				"title \"Scores\"",
+				"```"
+			],
+			"manual": 171
+		},
+		{
+			"name": "border",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"BORDER n"
+			],
+			"doc": [
+				"Changes the border style of the current window (1 to 16).",
+				"",
+				"```stos",
+				"border 3",
+				"```"
+			],
+			"manual": 172
+		},
+		{
+			"name": "window",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"WINDOW n"
+			],
+			"doc": [
+				"Makes window n the current window and brings it to the front.",
+				"",
+				"```stos",
+				"window 1",
+				"```"
+			],
+			"manual": 172
+		},
+		{
+			"name": "qwindow",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"QWINDOW n"
+			],
+			"doc": [
+				"Like WINDOW, but faster, because the window is not redrawn.",
+				"",
+				"```stos",
+				"qwindow 2",
+				"```"
+			],
+			"manual": 173
+		},
+		{
+			"name": "windon",
+			"kind": "function",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"=WINDON"
+			],
+			"doc": [
+				"The number of the current window.",
+				"",
+				"```stos",
+				"print windon",
+				"```"
+			],
+			"manual": 173
+		},
+		{
+			"name": "windmove",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"WINDMOVE x1,y1"
+			],
+			"doc": [
+				"Moves the current window with its contents to text position x1,y1.",
+				"",
+				"```stos",
+				"windmove 5,3",
+				"```"
+			],
+			"manual": 173
+		},
+		{
+			"name": "windel",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"WINDEL n"
+			],
+			"doc": [
+				"Closes window n and restores what was under it.",
+				"",
+				"```stos",
+				"windel 1",
+				"```"
+			],
+			"manual": 173
+		},
+		{
+			"name": "clw",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"CLW"
+			],
+			"doc": [
+				"Clears the current window with its paper colour.",
+				"",
+				"```stos",
+				"clw",
+				"```"
+			],
+			"manual": 174
+		},
+		{
+			"name": "scroll up",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"SCROLL UP"
+			],
+			"doc": [
+				"Scrolls the current window up one line.",
+				"",
+				"```stos",
+				"scroll up",
+				"```"
+			],
+			"manual": 174
+		},
+		{
+			"name": "scroll down",
+			"kind": "keyword",
+			"category": "Windows",
+			"source": "STOS",
+			"syntax": [
+				"SCROLL DOWN"
+			],
+			"doc": [
+				"Scrolls the text from the cursor line down one line.",
+				"",
+				"```stos",
+				"scroll down",
+				"```"
+			],
+			"manual": 175
+		},
+		{
+			"name": "charlen",
+			"kind": "function",
+			"category": "Character sets",
+			"source": "STOS",
+			"syntax": [
+				"=CHARLEN(n)"
+			],
+			"doc": [
+				"The length of the character set in bank n; 0 if there is none.",
+				"",
+				"```stos",
+				"print charlen(5)",
+				"```"
+			],
+			"manual": 176
+		},
+		{
+			"name": "charcopy",
+			"kind": "keyword",
+			"category": "Character sets",
+			"source": "STOS",
+			"syntax": [
+				"CHARCOPY s TO b"
+			],
+			"doc": [
+				"Copies character set s into bank b, for example to edit it or use it in a window.",
+				"",
+				"```stos",
+				"charcopy 1 to 5",
+				"```"
+			],
+			"manual": 177
+		},
+		{
+			"name": "icon$",
+			"kind": "function",
+			"category": "Character sets",
+			"source": "STOS",
+			"syntax": [
+				"=ICON$(n)"
+			],
+			"doc": [
+				"A string that prints icon n (from the icon bank) at the cursor. It can also be used as a menu title or option.",
+				"",
+				"```stos",
+				"print icon$(1)",
+				"```"
+			],
+			"manual": 179
+		},
+		{
+			"name": "menu$",
+			"kind": "keyword",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"MENU$(x)=title$ [,paper,pen]",
+				"MENU$(x,y)=option$ [,paper,pen]",
+				"MENU$(title,option) OFF",
+				"MENU$(title,option) ON"
+			],
+			"doc": [
+				"Builds the menu bar: menu title x, and option y under title x, with optional colours. OFF greys out (disables) an option, ON enables it again. Start the menu with MENU ON.",
+				"",
+				"```stos",
+				"menu$(1)=\" FILE \" : menu$(1,1)=\" Quit \"",
+				"```"
+			],
+			"manual": 180
+		},
+		{
+			"name": "menu on",
+			"kind": "keyword",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"MENU ON [border][,mode]"
+			],
+			"doc": [
+				"Shows the menu bar made with MENU$. border is the frame style (1 to 16); mode 1 gives drop-down menus, 2 pull-down menus.",
+				"",
+				"```stos",
+				"menu on 5,2",
+				"```"
+			],
+			"manual": 182
+		},
+		{
+			"name": "menu off",
+			"kind": "keyword",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"MENU OFF"
+			],
+			"doc": [
+				"Removes the menu completely and frees its memory.",
+				"",
+				"```stos",
+				"menu off",
+				"```"
+			],
+			"manual": 182
+		},
+		{
+			"name": "menu freeze",
+			"kind": "keyword",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"MENU FREEZE"
+			],
+			"doc": [
+				"Stops the menu from reacting until MENU ON.",
+				"",
+				"```stos",
+				"menu freeze",
+				"```"
+			],
+			"manual": 182
+		},
+		{
+			"name": "mnbar",
+			"kind": "function",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"=MNBAR"
+			],
+			"doc": [
+				"The number of the menu title chosen, 0 if none.",
+				"",
+				"```stos",
+				"if mnbar=1 and mnselect=1 then end",
+				"```"
+			],
+			"manual": 183
+		},
+		{
+			"name": "mnselect",
+			"kind": "function",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"=MNSELECT"
+			],
+			"doc": [
+				"The number of the option chosen in the menu.",
+				"",
+				"```stos",
+				"print mnbar,mnselect",
+				"```"
+			],
+			"manual": 183
+		},
+		{
+			"name": "on menu",
+			"kind": "keyword",
+			"category": "Menus",
+			"source": "STOS",
+			"syntax": [
+				"ON MENU GOTO line1[,line2]...",
+				"ON MENU ON",
+				"ON MENU OFF"
+			],
+			"doc": [
+				"Jumps to a line depending on the menu title chosen (line1 for title 1, ...), checked automatically while the program runs once ON MENU ON is given. ON MENU OFF stops it.",
+				"",
+				"```stos",
+				"on menu goto 1000,2000 : on menu on",
+				"```"
+			],
+			"manual": 183
+		},
+		{
+			"name": "goto",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"GOTO line",
+				"GOTO expression"
+			],
+			"doc": [
+				"Jumps to a line. The line number may be calculated, e.g. `goto 100*N`.",
+				"",
+				"```stos",
+				"goto 100",
+				"```"
+			],
+			"manual": 189
+		},
+		{
+			"name": "gosub",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"GOSUB line",
+				"GOSUB expression"
+			],
+			"doc": [
+				"Calls the subroutine at a line; RETURN comes back to the instruction after the GOSUB.",
+				"",
+				"```stos",
+				"gosub 1000",
+				"```"
+			],
+			"manual": 190
+		},
+		{
+			"name": "return",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"RETURN"
+			],
+			"doc": [
+				"Ends a subroutine and goes back to just after the GOSUB that called it.",
+				"",
+				"```stos",
+				"1000 print \"In the subroutine\" : return",
+				"```"
+			],
+			"manual": 190
+		},
+		{
+			"name": "pop",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"POP"
+			],
+			"doc": [
+				"Forgets the return address of the current GOSUB, so you can leave a subroutine with GOTO instead of RETURN.",
+				"",
+				"```stos",
+				"pop : goto 10",
+				"```"
+			],
+			"manual": 190
+		},
+		{
+			"name": "for",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"FOR var=start TO finish [STEP inc]"
+			],
+			"doc": [
+				"Starts a loop: var counts from start to finish (by inc, default 1) and the lines up to NEXT are repeated for each value.",
+				"",
+				"```stos",
+				"for I=1 to 10 : print I : next I",
+				"```"
+			],
+			"manual": 191
+		},
+		{
+			"name": "to",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"FOR var=start TO finish",
+				"... x1,y1 TO x2,y2"
+			],
+			"doc": [
+				"Part of FOR (the end value) and of many commands that take a range or two points (DRAW, BOX, BAR, SCREEN COPY, CHANGE ...). A reserved word: no variable name may contain it.",
+				"",
+				"```stos",
+				"for I=0 to 9 : next I",
+				"```"
+			],
+			"manual": 191
+		},
+		{
+			"name": "step",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"FOR var=start TO finish STEP inc"
+			],
+			"doc": [
+				"Sets how much the FOR variable changes each time round; may be negative.",
+				"",
+				"```stos",
+				"for I=10 to 0 step -2 : print I : next I",
+				"```"
+			],
+			"manual": 191
+		},
+		{
+			"name": "next",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"NEXT [var]"
+			],
+			"doc": [
+				"Ends a FOR loop: adds the step and goes round again until the end value is passed.",
+				"",
+				"```stos",
+				"for I=1 to 3 : print I : next I",
+				"```"
+			],
+			"manual": 191
+		},
+		{
+			"name": "while",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"WHILE condition"
+			],
+			"doc": [
+				"Repeats the lines up to WEND as long as the condition is true. The test is done at the start, so the loop may run zero times.",
+				"",
+				"```stos",
+				"while X<10 : inc X : wend",
+				"```"
+			],
+			"manual": 192
+		},
+		{
+			"name": "wend",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"WEND"
+			],
+			"doc": [
+				"Ends a WHILE loop.",
+				"",
+				"```stos",
+				"while inkey$=\"\" : wend",
+				"```"
+			],
+			"manual": 192
+		},
+		{
+			"name": "repeat",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"REPEAT"
+			],
+			"doc": [
+				"Starts a loop that runs until the condition after UNTIL is true. The test is at the end, so it runs at least once.",
+				"",
+				"```stos",
+				"repeat : until mouse key",
+				"```"
+			],
+			"manual": 192
+		},
+		{
+			"name": "until",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"UNTIL condition"
+			],
+			"doc": [
+				"Ends a REPEAT loop; goes back to REPEAT while the condition is false.",
+				"",
+				"```stos",
+				"repeat : inc X : until X=10",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "if",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"IF conditions THEN statements1 [ELSE statements2]"
+			],
+			"doc": [
+				"Runs statements1 when the condition is true, otherwise statements2. After THEN or ELSE a line number alone means GOTO that line. Everything stays on one line.",
+				"",
+				"```stos",
+				"if A>10 then print \"Big\" else print \"Small\"",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "then",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"IF condition THEN statements"
+			],
+			"doc": [
+				"Part of IF: what follows is done when the condition is true.",
+				"",
+				"```stos",
+				"if A=1 then 100",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "else",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"IF condition THEN statements1 ELSE statements2"
+			],
+			"doc": [
+				"Part of IF: what follows is done when the condition is false.",
+				"",
+				"```stos",
+				"if A=1 then print \"One\" else print \"Other\"",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "stop",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"STOP"
+			],
+			"doc": [
+				"Stops the program and returns to the editor; CONT carries on.",
+				"",
+				"```stos",
+				"if DEBUG then stop",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "end",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"END"
+			],
+			"doc": [
+				"Ends the program.",
+				"",
+				"```stos",
+				"end",
+				"```"
+			],
+			"manual": 193
+		},
+		{
+			"name": "on",
+			"kind": "keyword",
+			"category": "Control",
+			"source": "STOS",
+			"syntax": [
+				"ON var GOTO line1,line2...",
+				"ON var GOSUB line1,line2..."
+			],
+			"doc": [
+				"Jumps to (or calls) the first line when var is 1, the second when it is 2, and so on. Other values go on to the next instruction.",
+				"",
+				"```stos",
+				"on CHOICE gosub 1000,2000,3000",
+				"```"
+			],
+			"manual": 194
+		},
+		{
+			"name": "on error",
+			"kind": "keyword",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"ON ERROR GOTO line",
+				"ON ERROR GOTO 0"
+			],
+			"doc": [
+				"When an error happens, jump to line instead of stopping. ERRN and ERRL tell which error and where; finish with RESUME. ON ERROR GOTO 0 switches this off.",
+				"",
+				"```stos",
+				"on error goto 1000",
+				"```"
+			],
+			"manual": 195
+		},
+		{
+			"name": "resume",
+			"kind": "keyword",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"RESUME",
+				"RESUME NEXT",
+				"RESUME line"
+			],
+			"doc": [
+				"Leaves an error routine: retry the instruction that failed, carry on after it (NEXT), or go to a line. Do not leave an error routine with GOTO.",
+				"",
+				"```stos",
+				"1000 print \"Error \";errn : resume next",
+				"```"
+			],
+			"manual": 195
+		},
+		{
+			"name": "errn",
+			"kind": "function",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"=ERRN"
+			],
+			"doc": [
+				"The number of the last error (list in Appendix A).",
+				"",
+				"```stos",
+				"print errn",
+				"```"
+			],
+			"manual": 196
+		},
+		{
+			"name": "errl",
+			"kind": "function",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"=ERRL"
+			],
+			"doc": [
+				"The line where the last error happened.",
+				"",
+				"```stos",
+				"print \"Error in line \";errl",
+				"```"
+			],
+			"manual": 196
+		},
+		{
+			"name": "error",
+			"kind": "keyword",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"ERROR n"
+			],
+			"doc": [
+				"Causes error number n on purpose, as if it really happened. Useful to hand an error you do not deal with back to STOS.",
+				"",
+				"```stos",
+				"error 2",
+				"```"
+			],
+			"manual": 196
+		},
+		{
+			"name": "break",
+			"kind": "keyword",
+			"category": "Errors",
+			"source": "STOS",
+			"syntax": [
+				"BREAK ON/OFF"
+			],
+			"doc": [
+				"Allows (ON) or blocks (OFF) stopping the program with Control+C.",
+				"",
+				"```stos",
+				"break off",
+				"```"
+			],
+			"manual": 197
+		},
+		{
+			"name": "key",
+			"kind": "keyword",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"KEY(x)=a$"
+			],
+			"doc": [
+				"Gives function key x (1 to 10, shifted 11 to 20) a text of up to 64 characters that it types when pressed.",
+				"",
+				"```stos",
+				"key(1)=\"list\"",
+				"```"
+			],
+			"manual": 197
+		},
+		{
+			"name": "inkey$",
+			"kind": "function",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"=INKEY$"
+			],
+			"doc": [
+				"The key waiting in the keyboard buffer, or \"\" if none; it does not wait. Keys without a character (function and cursor keys) give chr$(0); see SCANCODE.",
+				"",
+				"```stos",
+				"K$=inkey$ : if K$=\"q\" then end",
+				"```"
+			],
+			"manual": 197
+		},
+		{
+			"name": "scancode",
+			"kind": "function",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"=SCANCODE"
+			],
+			"doc": [
+				"The scan code of the last key read by INKEY$, to tell keys apart that have no Ascii code.",
+				"",
+				"```stos",
+				"K$=inkey$ : if K$<>\"\" then print scancode",
+				"```"
+			],
+			"manual": 198
+		},
+		{
+			"name": "clear key",
+			"kind": "keyword",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"CLEAR KEY"
+			],
+			"doc": [
+				"Empties the keyboard buffer.",
+				"",
+				"```stos",
+				"clear key : wait key",
+				"```"
+			],
+			"manual": 198
+		},
+		{
+			"name": "input$",
+			"kind": "function",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"=INPUT$(n)",
+				"=INPUT$(#channel,count)"
+			],
+			"doc": [
+				"Reads exactly n characters from the keyboard (waiting for each, nothing shown), or count characters from a file or device.",
+				"",
+				"```stos",
+				"A$=input$(1)",
+				"```"
+			],
+			"manual": 199
+		},
+		{
+			"name": "fkey",
+			"kind": "function",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"=FKEY"
+			],
+			"doc": [
+				"The function key pressed: 1 to 10, 11 to 20 with Shift, 0 if none.",
+				"",
+				"```stos",
+				"on fkey gosub 1000,2000,3000",
+				"```"
+			],
+			"manual": 199
+		},
+		{
+			"name": "wait key",
+			"kind": "keyword",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"WAIT KEY"
+			],
+			"doc": [
+				"Waits until a key is pressed.",
+				"",
+				"```stos",
+				"print \"Press a key\" : wait key",
+				"```"
+			],
+			"manual": 199
+		},
+		{
+			"name": "key speed",
+			"kind": "keyword",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"KEY SPEED repeatspeed,delay"
+			],
+			"doc": [
+				"Sets the key repeat: the time between repeats and the delay before repeating starts, in 50ths of a second.",
+				"",
+				"```stos",
+				"key speed 2,15",
+				"```"
+			],
+			"manual": 199
+		},
+		{
+			"name": "put key",
+			"kind": "keyword",
+			"category": "Keyboard",
+			"source": "STOS",
+			"syntax": [
+				"PUT KEY a$"
+			],
+			"doc": [
+				"Puts text into the keyboard buffer as if it were typed; for example to leave a command for the editor when the program ends.",
+				"",
+				"```stos",
+				"put key \"list\"",
+				"```"
+			],
+			"manual": 200
+		},
+		{
+			"name": "input",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"INPUT [prompt$;]variable list",
+				"INPUT #channel,variable list"
+			],
+			"doc": [
+				"Asks for values from the keyboard (or reads them from a file or device) and stores them in the variables. Several values are typed separated by commas.",
+				"",
+				"```stos",
+				"input \"Your name\";N$",
+				"```"
+			],
+			"manual": 200
+		},
+		{
+			"name": "line input",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"LINE INPUT [prompt$;]variable list",
+				"LINE INPUT #channel,variable list",
+				"LINE INPUT #channel,separator$,variable list"
+			],
+			"doc": [
+				"Like INPUT, but each value is ended by Return (or by separator$ for files), so commas are kept as part of the text.",
+				"",
+				"```stos",
+				"line input \"Address\";A$",
+				"```"
+			],
+			"manual": 201
+		},
+		{
+			"name": "print",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"PRINT list of variables",
+				"? list of variables",
+				"PRINT #channel,variable list"
+			],
+			"doc": [
+				"Writes values on the screen (or to a file or device). `;` keeps the cursor after the value, `,` moves to the next column. `?` is a short form.",
+				"",
+				"```stos",
+				"print \"Score:\";SC",
+				"```"
+			],
+			"manual": 201
+		},
+		{
+			"name": "using",
+			"kind": "keyword",
+			"category": "Text",
+			"source": "STOS",
+			"syntax": [
+				"PRINT USING format$;variable list"
+			],
+			"doc": [
+				"Formatted output in PRINT. In the format string `#` stands for a digit, `.` for the decimal point, `+` always shows the sign, `-` only a minus, `^` gives exponent form, and `~` is replaced by the next character of a string. Other characters are printed as they are.",
+				"",
+				"```stos",
+				"print using \"PI is #.###\";3.1415926",
+				"```"
+			],
+			"manual": 202,
+			"unclear": "The OCR mixes up some format characters (`~`, `;`); check pages 202-203."
+		},
+		{
+			"name": "open out",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"OPEN OUT #channel,file$[,attribute]"
+			],
+			"doc": [
+				"Opens a file for writing with PRINT #, on channel 1 to 10. An existing file of that name is erased.",
+				"",
+				"```stos",
+				"open out #1,\"SCORES.DAT\"",
+				"```"
+			],
+			"manual": 207
+		},
+		{
+			"name": "open in",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"OPEN IN #channel,file$"
+			],
+			"doc": [
+				"Opens a file for reading with INPUT #.",
+				"",
+				"```stos",
+				"open in #1,\"SCORES.DAT\"",
+				"```"
+			],
+			"manual": 207
+		},
+		{
+			"name": "open",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"OPEN #channel,\"R\",file$",
+				"OPEN #channel,\"AUX\"",
+				"OPEN #channel,\"MIDI\"",
+				"OPEN #channel,\"PRT\""
+			],
+			"doc": [
+				"Opens a random access file (records, see FIELD), or a channel to the serial port, MIDI port or printer.",
+				"",
+				"```stos",
+				"open #1,\"R\",\"DATA.DAT\"",
+				"```"
+			],
+			"manual": 207
+		},
+		{
+			"name": "close",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"CLOSE #channel"
+			],
+			"doc": [
+				"Closes a file; changes are only safe on disc after closing.",
+				"",
+				"```stos",
+				"close #1",
+				"```"
+			],
+			"manual": 208
+		},
+		{
+			"name": "eof",
+			"kind": "function",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"=EOF(#channel)"
+			],
+			"doc": [
+				"True when the end of the file has been reached.",
+				"",
+				"```stos",
+				"while not eof(#1) : input #1,A$ : wend",
+				"```"
+			],
+			"manual": 209
+		},
+		{
+			"name": "lof",
+			"kind": "function",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"=LOF(#channel)"
+			],
+			"doc": [
+				"The length of an open file.",
+				"",
+				"```stos",
+				"print lof(#1)",
+				"```"
+			],
+			"manual": 209
+		},
+		{
+			"name": "pof",
+			"kind": "property",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"=POF(#channel)",
+				"POF(#channel)=position"
+			],
+			"doc": [
+				"The current read/write position in an open file; assign to it to move the position.",
+				"",
+				"```stos",
+				"pof(#1)=1000",
+				"```"
+			],
+			"manual": 209
+		},
+		{
+			"name": "field",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"FIELD #channel,length1 AS field1$,length2 AS field2$..."
+			],
+			"doc": [
+				"Defines the layout of one record of a random access file: each field is a string of fixed length.",
+				"",
+				"```stos",
+				"field #1,20 as NAME$,4 as SCORE$",
+				"```"
+			],
+			"manual": 209
+		},
+		{
+			"name": "as",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"FIELD #channel,length AS field$",
+				"RESERVE AS ..."
+			],
+			"doc": [
+				"Part of FIELD and RESERVE. A reserved word: no variable name may contain it.",
+				"",
+				"```stos",
+				"field #1,10 as A$",
+				"```"
+			],
+			"manual": 209
+		},
+		{
+			"name": "put",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"PUT #channel,r"
+			],
+			"doc": [
+				"Writes the field strings as record number r of a random access file.",
+				"",
+				"```stos",
+				"put #1,5",
+				"```"
+			],
+			"manual": 210
+		},
+		{
+			"name": "get",
+			"kind": "keyword",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"GET #channel,r"
+			],
+			"doc": [
+				"Reads record number r of a random access file into the field strings.",
+				"",
+				"```stos",
+				"get #1,5 : print NAME$",
+				"```"
+			],
+			"manual": 210
+		},
+		{
+			"name": "port",
+			"kind": "function",
+			"category": "Files",
+			"source": "STOS",
+			"syntax": [
+				"=PORT(#channel)"
+			],
+			"doc": [
+				"True when a device (serial, MIDI) has data waiting to be read.",
+				"",
+				"```stos",
+				"if port(#1) then input #1,A$",
+				"```"
+			],
+			"manual": 210
+		},
+		{
+			"name": "lprint",
+			"kind": "keyword",
+			"category": "Printer",
+			"source": "STOS",
+			"syntax": [
+				"LPRINT list of variables"
+			],
+			"doc": [
+				"Like PRINT, but to the printer.",
+				"",
+				"```stos",
+				"lprint \"Hello\"",
+				"```"
+			],
+			"manual": 211
+		},
+		{
+			"name": "llist",
+			"kind": "keyword",
+			"category": "Printer",
+			"source": "STOS",
+			"syntax": [
+				"LLIST [first-last]"
+			],
+			"doc": [
+				"Lists the program, or part of it, on the printer (same forms as LIST).",
+				"",
+				"```stos",
+				"llist 10-100",
+				"```"
+			],
+			"manual": 211
+		},
+		{
+			"name": "ldir",
+			"kind": "keyword",
+			"category": "Printer",
+			"source": "STOS",
+			"syntax": [
+				"LDIR [path$]"
+			],
+			"doc": [
+				"Prints the disc directory on the printer.",
+				"",
+				"```stos",
+				"ldir",
+				"```"
+			],
+			"manual": 211
+		},
+		{
+			"name": "hardcopy",
+			"kind": "keyword",
+			"category": "Printer",
+			"source": "STOS",
+			"syntax": [
+				"HARDCOPY"
+			],
+			"doc": [
+				"Prints a picture of the screen (like Alt+Help).",
+				"",
+				"```stos",
+				"hardcopy",
+				"```"
+			],
+			"manual": 211
+		},
+		{
+			"name": "windcopy",
+			"kind": "keyword",
+			"category": "Printer",
+			"source": "STOS",
+			"syntax": [
+				"WINDCOPY"
+			],
+			"doc": [
+				"Prints the text of the current window; much faster than HARDCOPY.",
+				"",
+				"```stos",
+				"windcopy",
+				"```"
+			],
+			"manual": 211
+		},
+		{
+			"name": "dir",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"DIR [path$]",
+				"DIR/W [path$]"
+			],
+			"doc": [
+				"Lists the files of the current directory, or those matching path$. DIR/W lists them across the screen.",
+				"",
+				"```stos",
+				"dir \"*.BAS\"",
+				"```"
+			],
+			"manual": 212
+		},
+		{
+			"name": "dir$",
+			"kind": "property",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DIR$",
+				"DIR$=path$"
+			],
+			"doc": [
+				"The current directory used for loading and saving; assign to it to change directory.",
+				"",
+				"```stos",
+				"dir$=\"\\GAMES\"",
+				"```"
+			],
+			"manual": 212
+		},
+		{
+			"name": "dir first$",
+			"kind": "function",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DIR FIRST$(path$,flag)"
+			],
+			"doc": [
+				"The name and details of the first file matching path$, or \"\" if none. flag chooses the kinds of file, one bit each: 0 normal, 1 read-only, 2 hidden, 3 system, 4 disc name, 5 folders, 6 archived; -1 means all.",
+				"",
+				"```stos",
+				"A$=dir first$(\"*.*\",-1)",
+				"```"
+			],
+			"manual": 212
+		},
+		{
+			"name": "dir next$",
+			"kind": "function",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DIR NEXT$"
+			],
+			"doc": [
+				"The next file matching the pattern given to DIR FIRST$, or \"\" when there are no more.",
+				"",
+				"```stos",
+				"A$=dir next$",
+				"```"
+			],
+			"manual": 213
+		},
+		{
+			"name": "previous",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"PREVIOUS"
+			],
+			"doc": [
+				"Moves the current directory up one level.",
+				"",
+				"```stos",
+				"previous",
+				"```"
+			],
+			"manual": 213
+		},
+		{
+			"name": "drive",
+			"kind": "property",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DRIVE",
+				"DRIVE=n"
+			],
+			"doc": [
+				"The current drive number: 0 is A, 1 is B, and so on.",
+				"",
+				"```stos",
+				"drive=1",
+				"```"
+			],
+			"manual": 213
+		},
+		{
+			"name": "drive$",
+			"kind": "property",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DRIVE$",
+				"DRIVE$=d$"
+			],
+			"doc": [
+				"The current drive as a letter.",
+				"",
+				"```stos",
+				"print \"Drive \";drive$",
+				"```"
+			],
+			"manual": 214
+		},
+		{
+			"name": "drvmap",
+			"kind": "function",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DRVMAP"
+			],
+			"doc": [
+				"The connected drives, one bit per drive starting with bit 0 for A.",
+				"",
+				"```stos",
+				"if btst(2,drvmap) then print \"Drive C present\"",
+				"```"
+			],
+			"manual": 214
+		},
+		{
+			"name": "dfree",
+			"kind": "function",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=DFREE"
+			],
+			"doc": [
+				"Free bytes on the current disc.",
+				"",
+				"```stos",
+				"print dfree",
+				"```"
+			],
+			"manual": 214
+		},
+		{
+			"name": "mkdir",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"MKDIR folder$"
+			],
+			"doc": [
+				"Makes a new folder.",
+				"",
+				"```stos",
+				"mkdir \"LEVELS\"",
+				"```"
+			],
+			"manual": 214
+		},
+		{
+			"name": "rmdir",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"RMDIR folder$"
+			],
+			"doc": [
+				"Deletes an empty folder.",
+				"",
+				"```stos",
+				"rmdir \"LEVELS\"",
+				"```"
+			],
+			"manual": 214
+		},
+		{
+			"name": "kill",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"KILL file$"
+			],
+			"doc": [
+				"Deletes a file. Wildcards (`*`, `?`) delete several, so take care.",
+				"",
+				"```stos",
+				"kill \"OLD.BAS\"",
+				"```"
+			],
+			"manual": 215
+		},
+		{
+			"name": "rename",
+			"kind": "keyword",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"RENAME old$ TO new$"
+			],
+			"doc": [
+				"Gives a file a new name.",
+				"",
+				"```stos",
+				"rename \"A.BAS\" to \"B.BAS\"",
+				"```"
+			],
+			"manual": 215
+		},
+		{
+			"name": "fileselect$",
+			"kind": "function",
+			"category": "Directories",
+			"source": "STOS",
+			"syntax": [
+				"=FILESELECT$(path$[,title$[,border]])"
+			],
+			"doc": [
+				"Shows the STOS file selector with pattern path$, an optional title and border style (1 to 16). Returns the chosen file name, or \"\" if cancelled.",
+				"",
+				"```stos",
+				"F$=fileselect$(\"*.MBK\",\"Load sprites\")",
+				"```"
+			],
+			"manual": 224
+		},
+		{
+			"name": "deg",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=DEG(angle)"
+			],
+			"doc": [
+				"Converts radians to degrees.",
+				"",
+				"```stos",
+				"print deg(pi)",
+				"```"
+			],
+			"manual": 215
+		},
+		{
+			"name": "rad",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=RAD(angle)"
+			],
+			"doc": [
+				"Converts degrees to radians.",
+				"",
+				"```stos",
+				"print sin(rad(30))",
+				"```"
+			],
+			"manual": 215
+		},
+		{
+			"name": "sin",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=SIN(angle)"
+			],
+			"doc": [
+				"The sine of an angle in radians.",
+				"",
+				"```stos",
+				"X#=sin(pi/6)",
+				"```"
+			],
+			"manual": 215
+		},
+		{
+			"name": "cos",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=COS(angle)"
+			],
+			"doc": [
+				"The cosine of an angle in radians.",
+				"",
+				"```stos",
+				"X#=cos(pi/3)",
+				"```"
+			],
+			"manual": 216
+		},
+		{
+			"name": "tan",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=TAN(angle)"
+			],
+			"doc": [
+				"The tangent of an angle in radians.",
+				"",
+				"```stos",
+				"X#=tan(pi/4)",
+				"```"
+			],
+			"manual": 216
+		},
+		{
+			"name": "asin",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=ASIN(number)"
+			],
+			"doc": [
+				"The angle (in radians) whose sine is number (-1 to 1).",
+				"",
+				"```stos",
+				"print asin(0.5)",
+				"```"
+			],
+			"manual": 216
+		},
+		{
+			"name": "acos",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=ACOS(number)"
+			],
+			"doc": [
+				"The angle (in radians) whose cosine is number (-1 to 1).",
+				"",
+				"```stos",
+				"print acos(0.5)",
+				"```"
+			],
+			"manual": 216
+		},
+		{
+			"name": "atan",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=ATAN(number)"
+			],
+			"doc": [
+				"The angle (in radians) whose tangent is number.",
+				"",
+				"```stos",
+				"print atan(1)",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "hsin",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=HSIN(angle)"
+			],
+			"doc": [
+				"The hyperbolic sine.",
+				"",
+				"```stos",
+				"print hsin(1)",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "hcos",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=HCOS(angle)"
+			],
+			"doc": [
+				"The hyperbolic cosine.",
+				"",
+				"```stos",
+				"print hcos(1)",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "htan",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=HTAN(angle)"
+			],
+			"doc": [
+				"The hyperbolic tangent.",
+				"",
+				"```stos",
+				"print htan(1)",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "pi",
+			"kind": "function",
+			"category": "Trigonometry",
+			"source": "STOS",
+			"syntax": [
+				"=PI"
+			],
+			"doc": [
+				"The number pi (3.14159...), half a turn in radians.",
+				"",
+				"```stos",
+				"print 2*pi*R",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "log",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=LOG(y#)"
+			],
+			"doc": [
+				"The logarithm to base 10.",
+				"",
+				"```stos",
+				"print log(1000)",
+				"```"
+			],
+			"manual": 217
+		},
+		{
+			"name": "ln",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=LN(y#)"
+			],
+			"doc": [
+				"The natural logarithm (base e).",
+				"",
+				"```stos",
+				"print ln(10)",
+				"```"
+			],
+			"manual": 218
+		},
+		{
+			"name": "exp",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=EXP(y#)"
+			],
+			"doc": [
+				"e raised to the power y#; the opposite of LN.",
+				"",
+				"```stos",
+				"print exp(1)",
+				"```"
+			],
+			"manual": 218
+		},
+		{
+			"name": "sqr",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=SQR(y)"
+			],
+			"doc": [
+				"The square root.",
+				"",
+				"```stos",
+				"print sqr(16)",
+				"```"
+			],
+			"manual": 218
+		},
+		{
+			"name": "abs",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=ABS(y)"
+			],
+			"doc": [
+				"The value without its sign.",
+				"",
+				"```stos",
+				"print abs(-5)",
+				"```"
+			],
+			"manual": 218
+		},
+		{
+			"name": "int",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=INT(y#)"
+			],
+			"doc": [
+				"Rounds down to a whole number.",
+				"",
+				"```stos",
+				"print int(3.7)",
+				"```"
+			],
+			"manual": 219
+		},
+		{
+			"name": "sgn",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=SGN(y)"
+			],
+			"doc": [
+				"The sign: -1 if negative, 0 if zero, 1 if positive.",
+				"",
+				"```stos",
+				"print sgn(-12)",
+				"```"
+			],
+			"manual": 219
+		},
+		{
+			"name": "max",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=MAX(x,y)"
+			],
+			"doc": [
+				"The larger of two values (numbers, or strings of the same type).",
+				"",
+				"```stos",
+				"print max(3,8)",
+				"```"
+			],
+			"manual": 219
+		},
+		{
+			"name": "min",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=MIN(x,y)"
+			],
+			"doc": [
+				"The smaller of two values.",
+				"",
+				"```stos",
+				"print min(3,8)",
+				"```"
+			],
+			"manual": 219
+		},
+		{
+			"name": "swap",
+			"kind": "keyword",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"SWAP x,y"
+			],
+			"doc": [
+				"Exchanges the contents of two variables of the same type.",
+				"",
+				"```stos",
+				"swap A,B",
+				"```"
+			],
+			"manual": 220,
+			"unclear": "The syntax line reads `SWAP(X,Y)` but every example uses `swap A,B`; check page 220."
+		},
+		{
+			"name": "def fn",
+			"kind": "keyword",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"DEF FN name[(variable list)]=expression"
+			],
+			"doc": [
+				"Defines your own one-line function, used later with FN.",
+				"",
+				"```stos",
+				"def fn SQ(X)=X*X",
+				"```"
+			],
+			"manual": 220
+		},
+		{
+			"name": "fn",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=FN name[(variable list)]"
+			],
+			"doc": [
+				"Calls a function made with DEF FN.",
+				"",
+				"```stos",
+				"print fn SQ(4)",
+				"```"
+			],
+			"manual": 220
+		},
+		{
+			"name": "rnd",
+			"kind": "function",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"=RND(y)"
+			],
+			"doc": [
+				"A random whole number from 0 to y. A negative y gives the last value again.",
+				"",
+				"```stos",
+				"D=rnd(5)+1",
+				"```"
+			],
+			"manual": 221
+		},
+		{
+			"name": "fix",
+			"kind": "keyword",
+			"category": "Maths",
+			"source": "STOS",
+			"syntax": [
+				"FIX(n)"
+			],
+			"doc": [
+				"How real numbers are printed: 0 to 15 gives n decimals, 16 or more gives as many as needed without trailing zeros, negative gives exponent form with ABS(n) decimals.",
+				"",
+				"```stos",
+				"fix(2) : print pi",
+				"```"
+			],
+			"manual": 221
+		},
+		{
+			"name": "time$",
+			"kind": "property",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"=TIME$",
+				"TIME$=t$"
+			],
+			"doc": [
+				"The clock time as \"HH:MM:SS\"; assign to it to set the clock.",
+				"",
+				"```stos",
+				"time$=\"10:50:00\" : print time$",
+				"```"
+			],
+			"manual": 224
+		},
+		{
+			"name": "date$",
+			"kind": "property",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"=DATE$",
+				"DATE$=d$"
+			],
+			"doc": [
+				"The date as \"DD/MM/YYYY\"; assign to it to set the date.",
+				"",
+				"```stos",
+				"print date$",
+				"```"
+			],
+			"manual": 224
+		},
+		{
+			"name": "rol",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"ROL[.B/.W/.L] n,var"
+			],
+			"doc": [
+				"Rotates the bits of a variable n places to the left; bits leaving at the top come back at the bottom. .B, .W, .L work on 8, 16 or 32 bits.",
+				"",
+				"```stos",
+				"X=136 : rol.b 1,X : print X",
+				"```"
+			],
+			"manual": 226
+		},
+		{
+			"name": "ror",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"ROR[.B/.W/.L] n,var"
+			],
+			"doc": [
+				"Rotates the bits of a variable n places to the right.",
+				"",
+				"```stos",
+				"X=17 : ror.b 1,X : print X",
+				"```"
+			],
+			"manual": 226
+		},
+		{
+			"name": "btst",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=BTST(bit,var)"
+			],
+			"doc": [
+				"True if bit number bit (0 to 31) of the variable is 1.",
+				"",
+				"```stos",
+				"if btst(0,N) then print \"Odd\"",
+				"```"
+			],
+			"manual": 227
+		},
+		{
+			"name": "bset",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"BSET bit,var"
+			],
+			"doc": [
+				"Sets a bit of a variable to 1.",
+				"",
+				"```stos",
+				"A=0 : bset 8,A : print A",
+				"```"
+			],
+			"manual": 227,
+			"unclear": "The syntax lines say `BSET(x,y)` with x the variable, but the examples put the bit number first; check page 227 (also BCHG, BCLR)."
+		},
+		{
+			"name": "bchg",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"BCHG bit,var"
+			],
+			"doc": [
+				"Flips a bit of a variable (1 becomes 0 and 0 becomes 1).",
+				"",
+				"```stos",
+				"A=0 : bchg 1,A : print A",
+				"```"
+			],
+			"manual": 227
+		},
+		{
+			"name": "bclr",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"BCLR bit,var"
+			],
+			"doc": [
+				"Sets a bit of a variable to 0.",
+				"",
+				"```stos",
+				"A=255 : bclr 0,A : print A",
+				"```"
+			],
+			"manual": 227
+		},
+		{
+			"name": "peek",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=PEEK(address)"
+			],
+			"doc": [
+				"The byte (0 to 255) at an address.",
+				"",
+				"```stos",
+				"print peek(start(5))",
+				"```"
+			],
+			"manual": 228
+		},
+		{
+			"name": "poke",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"POKE address,x"
+			],
+			"doc": [
+				"Writes a byte to an address.",
+				"",
+				"```stos",
+				"poke start(5),255",
+				"```"
+			],
+			"manual": 228
+		},
+		{
+			"name": "deek",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=DEEK(address)"
+			],
+			"doc": [
+				"The two-byte word at an even address.",
+				"",
+				"```stos",
+				"print deek(start(5))",
+				"```"
+			],
+			"manual": 228
+		},
+		{
+			"name": "doke",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"DOKE address,value"
+			],
+			"doc": [
+				"Writes a two-byte word (0 to 65535) to an even address.",
+				"",
+				"```stos",
+				"doke start(5),1000",
+				"```"
+			],
+			"manual": 228
+		},
+		{
+			"name": "leek",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=LEEK(address)"
+			],
+			"doc": [
+				"The four-byte long word at an even address.",
+				"",
+				"```stos",
+				"print leek(start(5))",
+				"```"
+			],
+			"manual": 229
+		},
+		{
+			"name": "loke",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"LOKE address,number"
+			],
+			"doc": [
+				"Writes a four-byte long word to an even address.",
+				"",
+				"```stos",
+				"loke start(5),123456",
+				"```"
+			],
+			"manual": 229
+		},
+		{
+			"name": "varptr",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=VARPTR(variable)"
+			],
+			"doc": [
+				"The address where a variable's value is kept in memory.",
+				"",
+				"```stos",
+				"print varptr(A)",
+				"```"
+			],
+			"manual": 229
+		},
+		{
+			"name": "copy",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"COPY start,finish TO destination"
+			],
+			"doc": [
+				"Copies a block of memory (even addresses).",
+				"",
+				"```stos",
+				"copy start(5),start(5)+1000 to start(6)",
+				"```"
+			],
+			"manual": 229
+		},
+		{
+			"name": "fill",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"FILL start TO finish,longword"
+			],
+			"doc": [
+				"Fills a block of memory with a four-byte value.",
+				"",
+				"```stos",
+				"fill start(5) to start(5)+1000,0",
+				"```"
+			],
+			"manual": 230
+		},
+		{
+			"name": "hunt",
+			"kind": "function",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"=HUNT(start TO end,a$)"
+			],
+			"doc": [
+				"Searches memory between two addresses for a string; returns its address, or 0.",
+				"",
+				"```stos",
+				"X=hunt(start(5) to start(5)+length(5),\"STOS\")",
+				"```"
+			],
+			"manual": 230
+		},
+		{
+			"name": "call",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"CALL address"
+			],
+			"doc": [
+				"Runs machine code at an address or in a bank (give the bank number). Registers can be passed with AREG and DREG.",
+				"",
+				"```stos",
+				"call 5",
+				"```"
+			],
+			"manual": 253
+		},
+		{
+			"name": "areg",
+			"kind": "property",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"AREG(r)"
+			],
+			"doc": [
+				"Six pseudo-variables holding address registers A0 to A5, passed to and from CALL and TRAP.",
+				"",
+				"```stos",
+				"areg(0)=start(6) : call 5",
+				"```"
+			],
+			"manual": 254
+		},
+		{
+			"name": "dreg",
+			"kind": "property",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"DREG(r)"
+			],
+			"doc": [
+				"Pseudo-variables holding data registers D0 to D7, passed to and from CALL and TRAP.",
+				"",
+				"```stos",
+				"dreg(0)=10 : call 5 : print dreg(0)",
+				"```"
+			],
+			"manual": 254
+		},
+		{
+			"name": "trap",
+			"kind": "keyword",
+			"category": "Machine level",
+			"source": "STOS",
+			"syntax": [
+				"TRAP n[,parameters]"
+			],
+			"doc": [
+				"Calls 68000 trap n (0, 1, 13, 14 for the operating system, 3 to 7 for STOS) after putting the parameters on the stack. Parameters are words unless written `L.value` (long); a string passes its address. Registers can also be passed with AREG and DREG. Mistakes easily crash the ST.",
+				"",
+				"```stos",
+				"trap 14,33,4",
+				"```"
+			],
+			"manual": 254
+		},
+		{
+			"name": "wait",
+			"kind": "keyword",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"WAIT x"
+			],
+			"doc": [
+				"Pauses for x 50ths of a second.",
+				"",
+				"```stos",
+				"wait 50",
+				"```"
+			],
+			"manual": 230
+		},
+		{
+			"name": "timer",
+			"kind": "property",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"=TIMER",
+				"TIMER=x"
+			],
+			"doc": [
+				"A counter that goes up by one every 50th of a second; can be set.",
+				"",
+				"```stos",
+				"timer=0 : wait key : print timer/50;\" seconds\"",
+				"```"
+			],
+			"manual": 231
+		},
+		{
+			"name": "rem",
+			"kind": "keyword",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"REM text"
+			],
+			"doc": [
+				"A comment: the rest of the line is ignored.",
+				"",
+				"```stos",
+				"rem Main loop",
+				"```"
+			],
+			"manual": 231
+		},
+		{
+			"name": "data",
+			"kind": "keyword",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"DATA list"
+			],
+			"doc": [
+				"Values stored in the program, read with READ.",
+				"",
+				"```stos",
+				"data 10,20,\"STOS\"",
+				"```"
+			],
+			"manual": 231
+		},
+		{
+			"name": "read",
+			"kind": "keyword",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"READ list of variables"
+			],
+			"doc": [
+				"Reads the next values from DATA lines into variables.",
+				"",
+				"```stos",
+				"read A,B,C$",
+				"```"
+			],
+			"manual": 232
+		},
+		{
+			"name": "restore",
+			"kind": "keyword",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"RESTORE line",
+				"RESTORE expression"
+			],
+			"doc": [
+				"Makes the next READ start at the DATA of the given line.",
+				"",
+				"```stos",
+				"restore 1000",
+				"```"
+			],
+			"manual": 232
+		},
+		{
+			"name": "true",
+			"kind": "function",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"=TRUE"
+			],
+			"doc": [
+				"The value true, -1.",
+				"",
+				"```stos",
+				"if A=true then print \"Yes\"",
+				"```"
+			],
+			"manual": 233
+		},
+		{
+			"name": "false",
+			"kind": "function",
+			"category": "Miscellaneous",
+			"source": "STOS",
+			"syntax": [
+				"=FALSE"
+			],
+			"doc": [
+				"The value false, 0.",
+				"",
+				"```stos",
+				"DONE=false",
+				"```"
+			],
+			"manual": 233
+		},
+		{
+			"name": "not",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"=NOT(x)"
+			],
+			"doc": [
+				"Logical NOT: flips every bit, so NOT TRUE is FALSE.",
+				"",
+				"```stos",
+				"while not fire : wend",
+				"```"
+			],
+			"manual": 231
+		},
+		{
+			"name": "^",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x^y"
+			],
+			"doc": [
+				"Power: x raised to y. Highest priority of the operators.",
+				"",
+				"```stos",
+				"print 5^2",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "*",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x*y"
+			],
+			"doc": [
+				"Multiplication.",
+				"",
+				"```stos",
+				"print 3*4",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "/",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x/y"
+			],
+			"doc": [
+				"Division.",
+				"",
+				"```stos",
+				"print 10/4",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "mod",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x MOD y"
+			],
+			"doc": [
+				"The remainder of a division.",
+				"",
+				"```stos",
+				"print 10 mod 3",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "+",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x+y",
+				"a$+b$"
+			],
+			"doc": [
+				"Addition, or joins two strings.",
+				"",
+				"```stos",
+				"A$=\"STOS\"+\" Basic\"",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "-",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x-y",
+				"a$-b$"
+			],
+			"doc": [
+				"Subtraction. With strings it removes every b$ from a$.",
+				"",
+				"```stos",
+				"print \"STOS BASIC\"-\"S\"",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "and",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x AND y"
+			],
+			"doc": [
+				"Logical (bitwise) AND; in IF it means both conditions.",
+				"",
+				"```stos",
+				"if X>0 and X<320 then plot X,100",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "or",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x OR y"
+			],
+			"doc": [
+				"Logical (bitwise) OR; in IF it means at least one condition.",
+				"",
+				"```stos",
+				"if K$=\"q\" or K$=\"Q\" then end",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "xor",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x XOR y"
+			],
+			"doc": [
+				"Logical (bitwise) exclusive OR.",
+				"",
+				"```stos",
+				"print 5 xor 3",
+				"```"
+			],
+			"manual": 44
+		},
+		{
+			"name": "=",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x=y"
+			],
+			"doc": [
+				"Equal to (in a comparison), or assignment. Strings are compared by their Ascii codes.",
+				"",
+				"```stos",
+				"if A$=\"YES\" then 100",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": "<>",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x<>y"
+			],
+			"doc": [
+				"Not equal to.",
+				"",
+				"```stos",
+				"if A<>0 then print \"Not zero\"",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": "<",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x<y"
+			],
+			"doc": [
+				"Less than; strings are compared by Ascii code.",
+				"",
+				"```stos",
+				"if \"AA\"<\"BB\" then print \"Before\"",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": ">",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x>y"
+			],
+			"doc": [
+				"Greater than.",
+				"",
+				"```stos",
+				"if SC>HI then HI=SC",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": "<=",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x<=y"
+			],
+			"doc": [
+				"Less than or equal to.",
+				"",
+				"```stos",
+				"if X<=0 then X=0",
+				"```"
+			],
+			"manual": 45
+		},
+		{
+			"name": ">=",
+			"kind": "operator",
+			"category": "Operators",
+			"source": "STOS",
+			"syntax": [
+				"x>=y"
+			],
+			"doc": [
+				"Greater than or equal to.",
+				"",
+				"```stos",
+				"if X>=319 then X=319",
+				"```"
+			],
+			"manual": 45
+		}
+	]
+}

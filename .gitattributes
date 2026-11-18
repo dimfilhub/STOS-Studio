@@ -1,0 +1,4 @@
+# Store every file exactly as it is: no line-ending conversion.
+# STOS and Atari files (.asc, test fixtures, data files) need CR+LF, while the global
+# git setting core.autocrlf=input would turn them into LF when they are committed.
+* -text

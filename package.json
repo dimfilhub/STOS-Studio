@@ -1,0 +1,343 @@
+{
+	"name": "stos-studio",
+	"displayName": "STOS Studio",
+	"description": "Write STOS BASIC (Atari ST) in VS Code: command help, labels and includes, build to a numbered .asc and run it in the Hatari emulator.",
+	"version": "0.1.1",
+	"publisher": "dimfilhub",
+	"author": "Dimitris Filios",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dimfilhub/STOS-Studio.git"
+	},
+	"bugs": {
+		"url": "https://github.com/dimfilhub/STOS-Studio/issues"
+	},
+	"homepage": "https://github.com/dimfilhub/STOS-Studio#readme",
+	"icon": "images/icon.png",
+	"engines": {
+		"vscode": "^1.74.0"
+	},
+	"categories": [
+		"Programming Languages",
+		"Snippets"
+	],
+	"activationEvents": [
+		"onLanguage:stos",
+		"workspaceContains:**/*.stos",
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"test": "tsc -p ./ && node --test test/",
+		"package": "vsce package",
+		"grammar": "node scripts/build-grammar.js",
+		"manual": "node scripts/build-manual.js"
+	},
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"@types/vscode": "^1.74.0",
+		"@vscode/vsce": "^3.0.0",
+		"typescript": "^5.4.0",
+		"vscode-oniguruma": "^2.0.1",
+		"vscode-textmate": "^9.3.2"
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "stos",
+				"aliases": [
+					"STOS BASIC",
+					"stos"
+				],
+				"extensions": [
+					".stos"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "stos",
+				"scopeName": "source.stos",
+				"path": "./syntaxes/stos.tmLanguage.json"
+			}
+		],
+		"snippets": [
+			{
+				"language": "stos",
+				"path": "./snippets/stos.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "stosStudio.build",
+				"title": "Build",
+				"category": "STOS Studio",
+				"icon": "$(tools)"
+			},
+			{
+				"command": "stosStudio.run",
+				"title": "Build and run in Hatari",
+				"category": "STOS Studio",
+				"icon": "$(play)"
+			},
+			{
+				"command": "stosStudio.selectHatari",
+				"title": "Select Hatari...",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.selectTosImage",
+				"title": "Select TOS image...",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.selectStosFolder",
+				"title": "Select STOS folder...",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.newProject",
+				"title": "New STOS project...",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.selectToolkitFolder",
+				"title": "Select Toolkit folder...",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.openSpriteEditor",
+				"title": "Open sprite editor (STOS-Toolkit)",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.openWorkbench",
+				"title": "Open workbench (STOS-Toolkit)",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.buildGraphics",
+				"title": "Build graphics (STOS-Toolkit)",
+				"category": "STOS Studio"
+			},
+			{
+				"command": "stosStudio.graphicsStatus",
+				"title": "Show graphics status (STOS-Toolkit)",
+				"category": "STOS Studio"
+			}
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"command": "stosStudio.build",
+					"when": "resourceLangId == stos",
+					"group": "navigation@1"
+				},
+				{
+					"command": "stosStudio.run",
+					"when": "resourceLangId == stos",
+					"group": "navigation@2"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "stosStudio.openWorkbench",
+					"when": "stosStudio.toolkitConfigured && resourceFilename =~ /\\.(mbk|spr|png|jpe?g|pi1|neo|pac)$/i",
+					"group": "navigation"
+				},
+				{
+					"command": "stosStudio.openSpriteEditor",
+					"when": "stosStudio.toolkitConfigured && resourceFilename =~ /\\.(mbk|spr)$/i",
+					"group": "navigation"
+				}
+			],
+			"commandPalette": [
+				{
+					"command": "stosStudio.openSpriteEditor",
+					"when": "stosStudio.toolkitConfigured"
+				},
+				{
+					"command": "stosStudio.openWorkbench",
+					"when": "stosStudio.toolkitConfigured"
+				},
+				{
+					"command": "stosStudio.buildGraphics",
+					"when": "stosStudio.toolkitConfigured && stosStudio.hasToolkitManifest"
+				},
+				{
+					"command": "stosStudio.graphicsStatus",
+					"when": "stosStudio.toolkitConfigured && stosStudio.hasToolkitManifest"
+				}
+			]
+		},
+		"taskDefinitions": [
+			{
+				"type": "stosStudio",
+				"required": [
+					"action"
+				],
+				"properties": {
+					"action": {
+						"type": "string",
+						"enum": [
+							"build",
+							"run"
+						],
+						"description": "build: .stos -> .asc; run: build, then start Hatari"
+					}
+				}
+			}
+		],
+		"configuration": {
+			"title": "STOS Studio",
+			"properties": {
+				"stosStudio.sourceFile": {
+					"type": "string",
+					"default": "main.stos",
+					"description": "Main .stos file of the project, relative to the project folder."
+				},
+				"stosStudio.outputFile": {
+					"type": "string",
+					"default": "stos/main.asc",
+					"description": "The numbered .asc file that is created, relative to the project folder. Must be inside the project folder."
+				},
+				"stosStudio.hatariPath": {
+					"type": "string",
+					"scope": "machine",
+					"default": "",
+					"markdownDescription": "Hatari program. Empty = default for your system (macOS: `/Applications/Hatari.app/Contents/MacOS/Hatari`).\n\n[Select Hatari...](command:stosStudio.selectHatari) (on macOS you can pick `Hatari.app`)."
+				},
+				"stosStudio.tosImage": {
+					"type": "string",
+					"scope": "machine",
+					"default": "",
+					"markdownDescription": "TOS ROM image for Hatari (you provide it).\n\n[Select TOS image...](command:stosStudio.selectTosImage)"
+				},
+				"stosStudio.hardDrive": {
+					"type": "string",
+					"default": "hatari/hd",
+					"description": "Folder Hatari uses as drive C:, relative to the project folder. Must be inside the project folder."
+				},
+				"stosStudio.autoRun": {
+					"type": "string",
+					"default": "C:\\STOS\\BASIC208.TOS",
+					"description": "Program Hatari starts automatically, as the Atari sees it."
+				},
+				"stosStudio.stosFolder": {
+					"type": "string",
+					"scope": "machine",
+					"default": "",
+					"markdownDescription": "Your own STOS folder (the one with `BASIC208.TOS`). Run copies it onto the emulated drive of a project once; a drive that already has STOS is left alone. STOS is not part of this extension.\n\n[Select STOS folder...](command:stosStudio.selectStosFolder)"
+				},
+				"stosStudio.machine": {
+					"type": "string",
+					"default": "ste",
+					"enum": [
+						"st",
+						"megast",
+						"ste",
+						"megaste"
+					],
+					"enumDescriptions": [
+						"Atari ST (520/1040 ST)",
+						"Atari Mega ST",
+						"Atari STE (520/1040 STE)",
+						"Atari Mega STE"
+					],
+					"markdownDescription": "Atari model Hatari emulates. Pick a TOS image that fits it: TOS 1.02/1.04 for ST and Mega ST, TOS 1.62/2.06 for STE and Mega STE."
+				},
+				"stosStudio.memory": {
+					"type": "number",
+					"default": 1024,
+					"enum": [
+						512,
+						1024,
+						2048,
+						4096
+					],
+					"enumDescriptions": [
+						"512 KB",
+						"1 MB",
+						"2 MB",
+						"4 MB"
+					],
+					"description": "ST RAM of the emulated Atari, in KB."
+				},
+				"stosStudio.resolution": {
+					"type": "string",
+					"default": "low",
+					"enum": [
+						"low",
+						"medium",
+						"high"
+					],
+					"enumDescriptions": [
+						"320 x 200, 16 colours (colour monitor)",
+						"640 x 200, 4 colours (colour monitor)",
+						"640 x 400, black and white (monochrome monitor)"
+					],
+					"description": "Screen resolution the Atari starts in. Most STOS games use low resolution."
+				},
+				"stosStudio.assetsFolder": {
+					"type": "string",
+					"default": "assets",
+					"markdownDescription": "Folder of the project (sprite banks `.MBK`, pictures, data) whose files are copied onto the emulated drive on every Run, so a program can `load \"sprites.mbk\"`. Atari file names have 8 letters + 3. Empty = copy nothing."
+				},
+				"stosStudio.toolkitFolder": {
+					"type": "string",
+					"scope": "machine",
+					"default": "",
+					"markdownDescription": "Optional: your STOS-Toolkit folder (the separate project with the sprite editor and other graphic tools; it needs its `.venv`). Without it STOS Studio works as before, only the Toolkit commands are hidden.\n\n[Select Toolkit folder...](command:stosStudio.selectToolkitFolder)"
+				},
+				"stosStudio.checkUnknownCommands": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Warn when a statement starts with a word that is not a known STOS command (for example a typo like `scren`)."
+				},
+				"stosStudio.checkParameterCounts": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Warn when a command gets too few or too many values (for example `sprite 1,100`). Only commands whose syntax line is plain are checked."
+				},
+				"stosStudio.knownCommands": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"markdownDescription": "Commands that STOS Studio does not know but your STOS has (for example from an extension), so they are not reported as unknown. One word or name per entry, such as `wave`."
+				},
+				"stosStudio.buildToolkitGraphics": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Before Run copies the `assets` folder, let the STOS-Toolkit build the project's graphics, so they are current. Only happens with a Toolkit folder set and a `stos-toolkit.json` in the project; otherwise Run is unchanged. Files edited by hand are never overwritten."
+				}
+			}
+		}
+	},
+	"keywords": [
+		"stos",
+		"stos basic",
+		"atari st",
+		"atari",
+		"basic",
+		"hatari",
+		"retro"
+	],
+	"galleryBanner": {
+		"color": "#1B2340",
+		"theme": "dark"
+	},
+	"preview": true,
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": "limited",
+			"description": "Editing, help, colours and Build work. Run and the sprite editor start external programs (Hatari, Python), so they are disabled until you trust the workspace."
+		}
+	}
+}

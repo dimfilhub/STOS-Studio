@@ -1,0 +1,48 @@
+{
+	"for ... next": {
+		"prefix": "for",
+		"description": "Loop with a counter",
+		"body": ["for ${1:I}=${2:1} to ${3:10}", "\t$0", "next ${1:I}"]
+	},
+	"if ... then ... else": {
+		"prefix": "ifelse",
+		"description": "One-line IF with ELSE (STOS IF ends at the end of the line)",
+		"body": ["if ${1:condition} then ${2:statement} else ${3:statement}"]
+	},
+	"while ... wend": {
+		"prefix": "while",
+		"description": "Loop while a condition is true (tested first)",
+		"body": ["while ${1:condition}", "\t$0", "wend"]
+	},
+	"repeat ... until": {
+		"prefix": "repeat",
+		"description": "Loop until a condition is true (runs at least once)",
+		"body": ["repeat", "\t$0", "until ${1:condition}"]
+	},
+	"subroutine": {
+		"prefix": "sub",
+		"description": "A labelled subroutine, called with gosub @name",
+		"body": ["@${1:name}", "\t$0", "return"]
+	},
+	"game loop": {
+		"prefix": "gameloop",
+		"description": "Screen set-up and a main loop that runs once per screen refresh until Escape",
+		"body": [
+			"mode 0 : curs off : hide on : click off : cls",
+			"repeat",
+			"\t$0",
+			"\twait vbl",
+			"until inkey\\$=chr\\$(27)",
+			"show on : curs on : default"
+		]
+	},
+	"window": {
+		"prefix": "windopen",
+		"description": "Open a text window with a border and a title",
+		"body": [
+			"windopen ${1:1},${2:5},${3:5},${4:30},${5:10},${6:1}",
+			"title \"${7:Title}\"",
+			"$0"
+		]
+	}
+}

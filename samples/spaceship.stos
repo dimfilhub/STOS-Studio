@@ -1,0 +1,81 @@
+' spaceship.stos - a spaceship flying around the screen (a STOS Studio check program)
+'
+' Cursor keys: fly up, down, left, right (the ship keeps going).
+' Space: stop.  Esc: quit.
+'
+' It checks: @labels with goto, gosub and on ... gosub, cursor keys (INKEY$ + SCANCODE),
+' and flicker-free drawing on a hidden screen (LOGIC + SCREEN SWAP).
+
+mode 0 : flash off : curs off : hide on : click off
+palette $000,$777,$700,$770,$047
+set paint 1,1,0
+gosub @title
+
+' draw on the background screen while the other one is shown
+autoback off
+logic=back
+X=160 : Y=100 : DX=0 : DY=0 : D=1 : SPEED=3 : QUIT=0
+
+@main
+   cls logic
+   gosub @stars
+   on D gosub @up,@right,@down,@left
+   screen swap : wait vbl
+   K$=inkey$ : if K$<>"" then gosub @keys
+   X=X+DX*SPEED : Y=Y+DY*SPEED
+   ' fly off one side, come back on the other
+   if X<0 then X=X+320
+   if X>319 then X=X-320
+   if Y<0 then Y=Y+200
+   if Y>199 then Y=Y-200
+   if QUIT=0 then goto @main
+
+logic=physic : cls physic
+show on : curs on : click on : default
+end
+
+' ---- the title screen ----
+@title
+   cls : pen 1
+   locate 0,8 : centre "SPACESHIP"
+   locate 0,11 : centre "Cursor keys: fly around"
+   locate 0,12 : centre "Space: stop    Esc: quit"
+   locate 0,15 : centre "Press a key to start"
+   wait key
+   return
+
+' ---- read a key: cursor keys have no character, so test their scan code ----
+' D is the direction: 1 up, 2 right, 3 down, 4 left (for on D gosub)
+@keys
+   S=scancode
+   if K$=chr$(27) then QUIT=1
+   if K$=" " then DX=0 : DY=0
+   if S=72 then DX=0 : DY=-1 : D=1
+   if S=77 then DX=1 : DY=0 : D=2
+   if S=80 then DX=0 : DY=1 : D=3
+   if S=75 then DX=-1 : DY=0 : D=4
+   return
+
+' ---- a few fixed stars ----
+@stars
+   ink 4
+   plot 20,30 : plot 90,150 : plot 160,20 : plot 230,120 : plot 300,60 : plot 60,90 : plot 280,180
+   return
+
+' ---- the ship, pointing the way it flies (X,Y is its centre) ----
+@up
+   ink 1 : polygon X,Y-8 to X+6,Y+7 to X,Y+3 to X-6,Y+7
+   ink 2 : plot X,Y-1
+   return
+@right
+   ink 1 : polygon X+8,Y to X-7,Y+6 to X-3,Y to X-7,Y-6
+   ink 2 : plot X+1,Y
+   return
+@down
+   ink 1 : polygon X,Y+8 to X+6,Y-7 to X,Y-3 to X-6,Y-7
+   ink 2 : plot X,Y+1
+   return
+@left
+   ink 1 : polygon X-8,Y to X+7,Y+6 to X+3,Y to X+7,Y-6
+   ink 2 : plot X-1,Y
+   return

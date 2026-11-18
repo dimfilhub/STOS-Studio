@@ -1,0 +1,18 @@
+{
+	"$comment": "Every command on the STOS reference card (4 pages, the STOS reference card scan), as database names. Forms of one command share a name (MUSIC OFF is \"music\"); FOR...NEXT gives \"for\" and \"next\". Checked by test/commanddb.test.js.",
+	"groups": {
+		"page 1: variable and string commands": ["asc", "chr$", "dec", "dim", "flip$", "inc", "input", "input$", "instr", "key", "left$", "len", "let", "match", "mid$", "right$", "sort", "space$", "str$", "string$", "upper$", "val"],
+		"page 1-2: editor and system commands": ["auto", "change", "clear", "cont", "default", "delete", "english", "fload", "follow", "francais", "free", "frequency", "fsave", "full", "grab", "language", "keylist", "list", "lower", "merge", "multi", "new", "renum", "reset", "run", "search", "system", "unnew", "upper"],
+		"page 2: program control": ["break", "end", "errl", "errn", "error", "for", "next", "gosub", "goto", "if", "then", "else", "on error", "on", "pop", "repeat", "until", "resume", "return", "stop", "while", "wend"],
+		"page 2: loading and saving, directories": ["accload", "bload", "bsave", "load", "save", "dfree", "dir first$", "dir next$", "dir", "dir$", "drive", "drive$", "drvmap", "fileselect$", "kill", "mkdir", "previous", "rename", "rmdir"],
+		"page 2-3: filing commands": ["close", "eof", "field", "get", "line input", "lof", "open", "open in", "open out", "pof", "port", "print", "put"],
+		"page 3: memory banks": ["bcopy", "bgrab", "erase", "hexa", "length", "listbank", "reserve as data", "reserve as datascreen", "reserve as screen", "reserve as set", "reserve as work", "start"],
+		"page 3: text and windows": ["cdown", "centre", "cleft", "cright", "cup", "curs", "home", "inverse", "locate", "paper", "pen", "scrn", "set curs", "shade", "square", "tab", "under", "writing", "xcurs", "xgraphic", "xtext", "ycurs", "ygraphic", "ytext", "border", "clw", "qwindow", "scroll down", "scroll", "scroll up", "title", "windel", "windmove", "windon", "windopen", "window"],
+		"page 3: graphics": ["arc", "bar", "box", "circle", "clip", "colour", "divx", "divy", "draw", "earc", "ellipse", "epie", "flash", "gr writing", "ink"],
+		"page 4: character sets, mouse and joystick": ["charlen", "icon$", "change mouse", "fire", "hide", "jdown", "jleft", "joy", "jright", "jup", "limit mouse", "mouse key", "show", "x mouse", "y mouse"],
+		"page 4: music and sound": ["bell", "boom", "click", "envel", "music", "noise", "play", "pvoice", "shoot", "tempo", "transpose", "voice", "volume"],
+		"page 4: menus": ["menu freeze", "menu off", "menu on", "menu$", "mnbar", "mnselect", "on menu"],
+		"page 4: arithmetic operations": ["^", "/", "*", "mod", "+", "-", "and", "or", "xor"],
+		"page 4: mathematical and trigonometric functions": ["abs", "def fn", "exp", "fn", "int", "ln", "log", "max", "min", "sgn", "sqr", "swap", "acos", "asin", "atan", "cos", "deg", "hcos", "hsin", "htan", "pi", "rad"]
+	}
+}

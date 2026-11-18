@@ -1,0 +1,31 @@
+# Runs when a tag like v0.1.0 is pushed: tests, builds the .vsix, creates a GitHub Release
+# and publishes the same file to Open VSX (only if the OVSX_PAT secret exists).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write   # needed to create the release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test
+      - run: npm run package
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "${{ github.ref_name }}" ./*.vsix --title "${{ github.ref_name }}" --generate-notes
+      - name: Publish to Open VSX
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        if: env.OVSX_PAT != ''
+        run: npx --yes ovsx publish ./*.vsix -p "$OVSX_PAT"
