@@ -85,7 +85,11 @@ test('prepareRun copies the assets folder onto the drive', () => {
     fs.writeFileSync(path.join(dir, 'assets', 'SHIP.MBK'), 'bank');
     const s = { ...build.DEFAULT_SETTINGS, tosImage: path.join(dir, 'tos.img'), stosFolder: path.join(dir, 'my-stos') };
     build.prepareRun(dir, s, 'darwin');
+    assert.equal(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'CODE', 'SHIP.MBK'), 'utf8'), 'bank');
+    // an empty codeFolder keeps the old flat layout: files in the root of C:
+    build.prepareRun(dir, { ...s, codeFolder: '' }, 'darwin');
     assert.equal(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'SHIP.MBK'), 'utf8'), 'bank');
+    assert.ok(fs.existsSync(path.join(dir, 'hatari', 'hd', 'MAIN.ASC')));
 });
 
 // ---- Toolkit graphics build (Run hook and command) ----

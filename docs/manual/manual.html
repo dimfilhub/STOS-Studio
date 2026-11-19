@@ -342,19 +342,20 @@ main.stos:20:11: character "€" (U+20AC) does not exist in the Atari ST charact
     <li>the <b>first time only</b>, copies your STOS folder onto the project's emulated hard disk
       (<code>hatari/hd/STOS</code>, about 5 MB). A drive that already has STOS is left alone, so older projects
       keep working;</li>
-    <li>copies your program to the root of that disk as <code>MAIN.ASC</code>;</li>
+    <li>copies your program into the <code>CODE</code> folder of that disk as <code>MAIN.ASC</code>, so drive C: holds just <code>STOS</code>, <code>CODE</code> and an empty <code>AUTO</code>;</li>
     <li>starts <b>Hatari</b> with your TOS image and the disk as drive C:, and starts STOS from it.</li>
   </ol>
   <p>STOS opens in its editor. Load your program and run it by typing:</p>
-<pre class="plain">load "C:\MAIN.ASC"
+<pre class="plain">load "C:\CODE\MAIN.ASC"
 run</pre>
   <p>Hatari's messages appear in the terminal panel in VS Code. Close Hatari when you are done; the next Run
   starts it again with the newest version of your program.</p>
   <h3>Your own files: the assets folder</h3>
   <p>Put sprite banks, pictures and other files your program loads into a folder called <code>assets</code> in
   the project (sub-folders are fine). On every Run they are copied onto the emulated disk, next to
-  <code>MAIN.ASC</code>, so the program can load them by name:</p>
-<pre class="stos">load "sprites.mbk"</pre>
+  <code>MAIN.ASC</code> in <code>C:\CODE</code>. STOS looks in its own folder (<code>C:\STOS</code>) by default, so
+  give the full path:</p>
+<pre class="stos">load "C:\CODE\SPRITES.MBK"</pre>
   <ul>
     <li>Files you edit arrive again on the next Run. Names starting with a dot are skipped.</li>
     <li>The Atari has short file names (8 letters, a dot, 3 letters). Longer names are copied but Run warns you.</li>
@@ -392,6 +393,8 @@ run</pre>
       (macOS: <code>/Applications/Hatari.app</code>). Set with <i>Select Hatari...</i></td></tr>
     <tr><td><code>stosStudio.tosImage</code></td><td>empty</td><td>The TOS ROM image. Needed to run. Set with
       <i>Select TOS image...</i></td></tr>
+    <tr><td><code>stosStudio.codeFolder</code></td><td><code>CODE</code></td><td>Folder on the emulated drive that gets
+      <code>MAIN.ASC</code> and the assets. Empty means the root of C:.</td></tr>
     <tr><td><code>stosStudio.assetsFolder</code></td><td><code>assets</code></td><td>Project folder whose files are
       copied onto the emulated drive on every Run (chapter 9). Empty means copy nothing.</td></tr>
     <tr><td><code>stosStudio.toolkitFolder</code></td><td>empty</td><td>Optional: your STOS-Toolkit folder. Set with

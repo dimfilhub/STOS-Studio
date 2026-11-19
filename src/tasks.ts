@@ -30,7 +30,7 @@ export function readSettings(folder: vscode.WorkspaceFolder): StosSettings {
     return {
         sourceFile: get('sourceFile'), outputFile: get('outputFile'), hatariPath: get('hatariPath'),
         tosImage: get('tosImage'), hardDrive: get('hardDrive'), autoRun: get('autoRun'),
-        stosFolder: get('stosFolder'), assetsFolder: get('assetsFolder'), machine: get('machine'), memory: get('memory'),
+        stosFolder: get('stosFolder'), codeFolder: get('codeFolder'), assetsFolder: get('assetsFolder'), machine: get('machine'), memory: get('memory'),
         resolution: get('resolution'),
     };
 }

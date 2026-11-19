@@ -19,6 +19,7 @@ export interface StosSettings {
     hardDrive: string;    // folder Hatari uses as drive C:, relative to the project folder
     autoRun: string;      // program Hatari starts, as seen from the Atari
     stosFolder: string;   // the user's own STOS folder (with BASIC2xx.TOS), copied onto the drive once
+    codeFolder: string;   // folder on the drive for MAIN.ASC and the assets ("" = the root of C:)
     assetsFolder: string; // project folder whose files (sprite banks, ...) are copied onto the drive on every Run
     machine: string;      // emulated Atari: st, megast, ste or megaste
     memory: number;       // ST RAM in KB: 512, 1024, 2048 or 4096
@@ -43,6 +44,7 @@ export const DEFAULT_SETTINGS: StosSettings = {
     hardDrive: 'hatari/hd',
     autoRun: 'C:\\STOS\\BASIC208.TOS',
     stosFolder: '',
+    codeFolder: 'CODE',
     assetsFolder: 'assets',
     machine: 'ste',
     memory: 1024,
@@ -256,15 +258,20 @@ export function prepareRun(root: string, s: StosSettings, platform: string = pro
         throw new StosError(`${asc} is missing - build the project first`);
     }
     prepareDrive(hardDrive, s.stosFolder, log);
-    copyAssets(root, hardDrive, s.assetsFolder, log);
+    // the program and the assets go into their own folder (C:\CODE) so the root of C: stays tidy
+    const codeDir = s.codeFolder === '' ? hardDrive : path.join(hardDrive, s.codeFolder.toUpperCase());
+    copyAssets(root, codeDir, s.assetsFolder, log);
     if (!driveFile(hardDrive, s.autoRun)) {
         throw new StosError(`${s.autoRun} is not on the emulated drive (${hardDrive}); check "stosStudio.autoRun"`);
     }
     // STOS wants CR+LF; make sure of it even for an .asc written by another tool. The file is handled
     // as bytes ("latin1" maps each byte to one character and back), so Atari ST characters stay as they are.
     const text = fs.readFileSync(asc, 'latin1').replace(/\r?\n/g, '\r\n');
-    fs.mkdirSync(hardDrive, { recursive: true });
-    fs.writeFileSync(path.join(hardDrive, 'MAIN.ASC'), text, 'latin1');
+    fs.mkdirSync(codeDir, { recursive: true });
+    // TOS looks for an AUTO folder on drive C: at boot; without one Hatari logs "No GEMDOS dir .../AUTO".
+    // An empty folder is enough and silences the warning.
+    fs.mkdirSync(path.join(hardDrive, 'AUTO'), { recursive: true });
+    fs.writeFileSync(path.join(codeDir, 'MAIN.ASC'), text, 'latin1');
     return {
         command: expandHome(s.hatariPath || defaultHatariPath(platform)),
         args: [...machineArgs(s), '--fast-boot', 'true', '--tos', tos, '--confirm-quit', 'false',

@@ -283,6 +283,12 @@
 					],
 					"description": "Screen resolution the Atari starts in. Most STOS games use low resolution."
 				},
+				"stosStudio.codeFolder": {
+					"type": "string",
+					"default": "CODE",
+					"pattern": "^[^\\\\/:]*$",
+					"markdownDescription": "Folder on the emulated drive that gets your program (`MAIN.ASC`) and the assets, e.g. `CODE` gives `C:\\CODE\\MAIN.ASC`. Use a short Atari name (8 letters). Empty = the root of `C:`."
+				},
 				"stosStudio.assetsFolder": {
 					"type": "string",
 					"default": "assets",

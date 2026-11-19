@@ -52,11 +52,11 @@ test('prepareRun: MAIN.ASC on the emulated drive and the Hatari command line', (
     const s = { ...build.DEFAULT_SETTINGS, tosImage: tos, hatariPath: '/opt/hatari', stosFolder: stos };
     const cmd = build.prepareRun(dir, s, 'darwin');
     assert.equal(cmd.command, '/opt/hatari');
-    assert.equal(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'MAIN.ASC'), 'utf8'), '10 PRINT 1\r\n20 END\r\n');
+    assert.equal(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'CODE', 'MAIN.ASC'), 'utf8'), '10 PRINT 1\r\n20 END\r\n');
     // bytes above 127 (Atari ST characters) are copied unchanged
     fs.writeFileSync(path.join(dir, 'stos', 'main.asc'), Buffer.from([0x31, 0x30, 0x20, 0x82, 0x0A]));
     build.prepareRun(dir, s, 'darwin');
-    assert.deepEqual(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'MAIN.ASC')), Buffer.from([0x31, 0x30, 0x20, 0x82, 0x0D, 0x0A]));
+    assert.deepEqual(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'CODE', 'MAIN.ASC')), Buffer.from([0x31, 0x30, 0x20, 0x82, 0x0D, 0x0A]));
     const args = cmd.args.join(' ');
     assert.match(args, /^--machine ste --memsize 1024 --monitor rgb --tos-res low --fast-boot true --tos .*tos\.img/);
     assert.match(args, /--harddrive .*hatari[\\/]hd --protect-hd off --auto C:\\STOS\\BASIC208\.TOS$/);

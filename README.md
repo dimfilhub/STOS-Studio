@@ -17,8 +17,7 @@ It is also on [Open VSX](https://open-vsx.org) for VSCodium and similar editors.
 ## Requirements
 - VS Code 1.74 or newer.
 - [Hatari](https://hatari-emu.org), a TOS ROM image that fits the emulated machine, and your own copy of STOS.
-- Tested on macOS with Hatari 2.6. Windows and Linux are untested: the file handling and Hatari paths are written
-  for them, but nobody has tried them yet.
+- Tested on macOS with Hatari 2.6. Windows and Linux need further testing and feedback.
 
 ## Features
 - **Write** `.stos` files without line numbers: `@labels` instead of numbers, `#include` for more files,
@@ -63,7 +62,7 @@ It is also on [Open VSX](https://open-vsx.org) for VSCodium and similar editors.
    for all projects.
 3. **STOS Studio: New STOS project...**: choose a folder and a name. The project opens with a small `main.stos`.
 4. Press the play button at the top right of the editor (**Build and run in Hatari**). The first Run copies your
-   STOS onto the project's drive (`hatari/hd/STOS`); later Runs only copy the program (`MAIN.ASC`).
+   STOS onto the project's drive (`hatari/hd/STOS`); later Runs only copy the program (`hatari/hd/CODE/MAIN.ASC`, i.e. `C:\CODE\MAIN.ASC`).
 
 ## Writing .stos files
 ```stos
@@ -88,7 +87,7 @@ mode 0 : cls
 | Command | What it does |
 |---|---|
 | Build (also Shift+Cmd+B) | `.stos` -> numbered `.asc` |
-| Build and run in Hatari | builds; the first time copies your STOS folder to `hatari/hd/STOS`; copies the program to `hatari/hd/MAIN.ASC` (CR+LF); starts Hatari with STOS |
+| Build and run in Hatari | builds; the first time copies your STOS folder to `hatari/hd/STOS`; copies the program to `hatari/hd/CODE/MAIN.ASC` (CR+LF); starts Hatari with STOS |
 | New STOS project... | asks for a folder and a name; writes `main.stos`, `.vscode/settings.json`, `.gitignore`; opens it |
 | Select Hatari... | file picker; on macOS pick `Hatari.app`; saved in your user settings |
 | Select TOS image... | file picker for the TOS ROM; saved in your user settings |
@@ -115,6 +114,7 @@ project folder. Run, the graphics build and the sprite editor start external pro
 | `stosStudio.machine` | `ste` | emulated Atari: `st`, `megast`, `ste`, `megaste` (pick a TOS that fits: 1.02/1.04 for ST, 1.62/2.06 for STE) |
 | `stosStudio.memory` | `1024` | ST RAM in KB: 512, 1024, 2048, 4096 |
 | `stosStudio.resolution` | `low` | `low` (320x200, 16 colours), `medium` (640x200, 4 colours), `high` (640x400 mono monitor) |
+| `stosStudio.codeFolder` | `CODE` | folder on the drive for `MAIN.ASC` and the assets (empty = root of C:) |
 | `stosStudio.assetsFolder` | `assets` | project folder whose files are copied onto the drive on every Run (empty = none); Atari names are 8 letters + 3 |
 | `stosStudio.toolkitFolder` | empty | optional: your STOS-Toolkit folder (needs its `.venv`) |
 | `stosStudio.buildToolkitGraphics` | `true` | build the Toolkit graphics before Run (needs a Toolkit folder and `stos-toolkit.json`) |
