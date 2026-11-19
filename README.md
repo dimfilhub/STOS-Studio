@@ -16,6 +16,10 @@ Download the latest `.vsix` from the [Releases page](https://github.com/dimfilhu
 `code --install-extension stos-studio-<version>.vsix`, or in VS Code: Extensions -> ... -> Install from VSIX.
 It is also on [Open VSX](https://open-vsx.org) for VSCodium and similar editors.
 
+**VSCodium and similar editors:** install from Open VSX (search "STOS Studio" in the Extensions view) rather than from
+the `.vsix`. An extension installed from a `.vsix` file is not checked for updates, so it stays on that version.
+If you already installed the `.vsix`, uninstall it and install again from Open VSX.
+
 ## Requirements
 - VS Code 1.74 or newer.
 - [Hatari](https://hatari-emu.org), a TOS ROM image that fits the emulated machine, and your own copy of STOS.

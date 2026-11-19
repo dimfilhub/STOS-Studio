@@ -43,4 +43,8 @@ For every release:
 1. Update `version` in `package.json` and the heading in `CHANGELOG.md`; run `npm test`; commit and push.
 2. `git tag v0.1.0 && git push origin v0.1.0`. The workflow builds, creates the GitHub Release and publishes to Open VSX.
 
+Updates in VSCodium: an extension installed from a `.vsix` is never offered updates ("up to date"). Testers must install
+from Open VSX (uninstall the sideloaded copy first); after that new releases appear in the Extensions view on their own.
+The `.vsix` install is for VS Code and for trying a build locally.
+
 Manual alternative: `npm run package`, then `npx ovsx publish <file>.vsix -p <token>` and upload the file to a release.
