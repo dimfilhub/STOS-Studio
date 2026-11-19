@@ -61,7 +61,7 @@ If you already installed the `.vsix`, uninstall it and install again from Open V
 
 ## Getting started
 1. Install the `.vsix` file: in VS Code open the Extensions view, click the `...` menu at the top and choose
-   *Install from VSIX...* (or run `code --install-extension stos-studio-0.1.1.vsix`). Uninstall any other STOS
+   *Install from VSIX...* (or run `code --install-extension stos-studio-0.2.1.vsix`). Uninstall any other STOS
    extension first: both would claim `.stos` files.
 2. Command palette (Shift+Cmd+P), **STOS Studio: Select Hatari...** (on macOS pick `Hatari.app`), then
    **Select TOS image...** and **Select STOS folder...** (the folder with `BASIC208.TOS`). These are saved once

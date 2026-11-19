@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+- Docs: README and development notes say VSCodium users should install from Open VSX, since a `.vsix` install is never offered updates.
+
 ## 0.2.0
 - **Changed:** Run puts the program and the assets in `C:\CODE` (`hatari/hd/CODE`) instead of the root of `C:`; new setting `codeFolder` (empty = the old flat layout). Programs that load from `C:\` need the new path, e.g. `load "C:\CODE\SHIP.MBK"`.
 - Run prints where the program and the assets are and how to load them in STOS.
