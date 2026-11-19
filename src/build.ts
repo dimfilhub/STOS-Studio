@@ -260,7 +260,7 @@ export function prepareRun(root: string, s: StosSettings, platform: string = pro
     prepareDrive(hardDrive, s.stosFolder, log);
     // the program and the assets go into their own folder (C:\CODE) so the root of C: stays tidy
     const codeDir = s.codeFolder === '' ? hardDrive : path.join(hardDrive, s.codeFolder.toUpperCase());
-    copyAssets(root, codeDir, s.assetsFolder, log);
+    const assetCount = copyAssets(root, codeDir, s.assetsFolder, log);
     if (!driveFile(hardDrive, s.autoRun)) {
         throw new StosError(`${s.autoRun} is not on the emulated drive (${hardDrive}); check "stosStudio.autoRun"`);
     }
@@ -272,6 +272,10 @@ export function prepareRun(root: string, s: StosSettings, platform: string = pro
     // An empty folder is enough and silences the warning.
     fs.mkdirSync(path.join(hardDrive, 'AUTO'), { recursive: true });
     fs.writeFileSync(path.join(codeDir, 'MAIN.ASC'), text, 'latin1');
+    // tell the user where things are, as the file system and as STOS sees them
+    const atariDir = s.codeFolder === '' ? 'C:\\' : `C:\\${s.codeFolder.toUpperCase()}\\`;
+    log(`Program: ${path.join(codeDir, 'MAIN.ASC')}  (in STOS: load "${atariDir}MAIN.ASC")`);
+    if (assetCount > 0) { log(`Assets:  ${codeDir}  (in STOS: load "${atariDir}<NAME>.MBK")`); }
     return {
         command: expandHome(s.hatariPath || defaultHatariPath(platform)),
         args: [...machineArgs(s), '--fast-boot', 'true', '--tos', tos, '--confirm-quit', 'false',

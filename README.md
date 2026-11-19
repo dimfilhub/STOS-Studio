@@ -9,6 +9,8 @@ it (see Credits below).
 
 You provide yourself: STOS, Hatari, a TOS ROM image. Nothing of those is included.
 
+![A .stos program in VS Code and the result running in Hatari](images/screenshot.png)
+
 ## Install
 Download the latest `.vsix` from the [Releases page](https://github.com/dimfilhub/STOS-Studio/releases), then run
 `code --install-extension stos-studio-<version>.vsix`, or in VS Code: Extensions -> ... -> Install from VSIX.

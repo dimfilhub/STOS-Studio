@@ -2,7 +2,7 @@
 	"name": "stos-studio",
 	"displayName": "STOS Studio",
 	"description": "Write STOS BASIC (Atari ST) in VS Code: command help, labels and includes, build to a numbered .asc and run it in the Hatari emulator.",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"publisher": "dimfilhub",
 	"author": "Dimitris Filios",
 	"license": "MIT",

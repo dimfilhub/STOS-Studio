@@ -85,6 +85,10 @@ test('prepareRun copies the assets folder onto the drive', () => {
     fs.writeFileSync(path.join(dir, 'assets', 'SHIP.MBK'), 'bank');
     const s = { ...build.DEFAULT_SETTINGS, tosImage: path.join(dir, 'tos.img'), stosFolder: path.join(dir, 'my-stos') };
     build.prepareRun(dir, s, 'darwin');
+    const messages = [];
+    build.prepareRun(dir, s, 'darwin', m => messages.push(m));
+    assert.ok(messages.some(m => m.includes('load "C:\\CODE\\MAIN.ASC"')));
+    assert.ok(messages.some(m => m.startsWith('Assets:') && m.includes('C:\\CODE\\<NAME>')));
     assert.equal(fs.readFileSync(path.join(dir, 'hatari', 'hd', 'CODE', 'SHIP.MBK'), 'utf8'), 'bank');
     // an empty codeFolder keeps the old flat layout: files in the root of C:
     build.prepareRun(dir, { ...s, codeFolder: '' }, 'darwin');

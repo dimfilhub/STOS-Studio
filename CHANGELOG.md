@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+- **Changed:** Run puts the program and the assets in `C:\CODE` (`hatari/hd/CODE`) instead of the root of `C:`; new setting `codeFolder` (empty = the old flat layout). Programs that load from `C:\` need the new path, e.g. `load "C:\CODE\SHIP.MBK"`.
+- Run prints where the program and the assets are and how to load them in STOS.
+- Run creates an empty `AUTO` folder on the drive, so Hatari no longer logs "No GEMDOS dir ... AUTO".
+- README: screenshot; Windows and Linux still need testing and feedback.
+
 ## 0.1.1
 - Release workflow and publishing docs: first release on GitHub Releases (0.1.0 went to Open VSX only).
 
