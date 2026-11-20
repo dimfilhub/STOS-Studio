@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2
+- Removed the "Preview" flag from the extension manifest, so the Preview badge is gone.
+
 ## 0.2.1
 - Docs: README and development notes say VSCodium users should install from Open VSX, since a `.vsix` install is never offered updates.
 

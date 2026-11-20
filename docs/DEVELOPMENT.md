@@ -10,7 +10,7 @@ npm run grammar     # after changing data/stos-commands.json (a test checks it w
 npm run package     # creates stos-studio-<version>.vsix
 npm run manual      # builds the user manual PDF from docs/manual/manual.html (needs Google Chrome);
                     # default output: STOS Studio Manual.pdf on the Desktop, or: node scripts/build-manual.js out.pdf
-code --install-extension stos-studio-0.2.1.vsix --force
+code --install-extension stos-studio-0.2.2.vsix --force
 ```
 Install only one STOS extension at a time: two extensions that both handle `.stos` files get in each other's way.
 Design and phases are in `docs/PLAN.md`, progress and open points in `TODO.md`, the steps for the Marketplace in
